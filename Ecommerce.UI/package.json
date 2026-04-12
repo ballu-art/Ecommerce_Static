@@ -4,11 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-   "build": "npx ng build --configuration production",
+    "build": "npx ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-   "engines": {
+  "engines": {
     "node": "20.x"
   },
   "prettier": {
