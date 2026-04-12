@@ -1,0 +1,187 @@
+<div class="login-container">
+  <!-- Main Login Card -->
+  <div class="login-card">
+    
+    <!-- Email/Phone Entry Section -->
+    <ng-container *ngIf="!showOtpVerification">
+      <!-- Heading -->
+      <h1 class="login-title">Sign in or create account</h1>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert-box">
+        <span class="alert-icon">⚠</span>
+        <span class="alert-text">{{ errorMessage }}</span>
+      </div>
+
+      <!-- Login Form -->
+      <form (ngSubmit)="onSubmit()" class="login-form">
+        
+        <!-- Email/Mobile Input -->
+        <div class="form-field">
+          <label for="email" class="form-label">Enter mobile number or email</label>
+          <input
+            id="email"
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            placeholder=""
+            class="form-input"
+            [disabled]="isLoading"
+            autocomplete="email"
+          >
+        </div>
+
+        <!-- Continue Button -->
+        <button
+          type="button"
+          class="btn-continue"
+          (click)="showPasswordForm()"
+          [disabled]="isLoading"
+        >
+          Continue
+        </button>
+
+        <!-- Password Section - Only show after email entered -->
+        <ng-container *ngIf="showPassword">
+          <div class="divider">
+            <span class="divider-text">or</span>
+          </div>
+
+          <div class="form-field">
+            <label for="password" class="form-label">Password</label>
+            <div class="password-input-wrapper">
+              <input
+                id="password"
+                [type]="isPasswordVisible ? 'text' : 'password'"
+                [(ngModel)]="password"
+                name="password"
+                placeholder=""
+                class="form-input"
+                [disabled]="isLoading"
+                autocomplete="current-password"
+              >
+              <button
+                type="button"
+                class="password-eye-btn"
+                (click)="togglePasswordVisibility()"
+                [disabled]="isLoading"
+                [title]="isPasswordVisible ? 'Hide password' : 'Show password'"
+              >
+                <svg *ngIf="!isPasswordVisible" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <svg *ngIf="isPasswordVisible" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn-continue"
+            [disabled]="isLoading"
+          >
+            <span *ngIf="!isLoading">Sign in</span>
+            <span *ngIf="isLoading" class="loading-text">Signing in...</span>
+          </button>
+
+          <a href="#" class="forgot-password-link">Forgot your password?</a>
+        </ng-container>
+      </form>
+
+      <!-- Terms -->
+      <p class="terms-text">By continuing, you agree to Bond Master's <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice</a>.</p>
+
+      <!-- Create Account Section -->
+      <div class="create-account-section">
+        <p class="section-title">First time buyer?</p>
+        <a href="#" class="create-account-link">Create an account</a>
+      </div>
+    </ng-container>
+
+    <!-- OTP Verification Section -->
+    <ng-container *ngIf="showOtpVerification">
+      <!-- Heading -->
+      <h1 class="auth-title">Authentication required</h1>
+
+      <!-- Mobile Number Display -->
+      <div class="mobile-display">
+        <span class="mobile-number">{{ email }}</span>
+        <a href="#" class="change-link" (click)="goBackToEmail()">Change</a>
+      </div>
+
+      <!-- OTP Message -->
+      <p class="otp-message">We've sent a One Time Password (OTP) to the mobile number above. Please enter it to complete verification</p>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert-box">
+        <span class="alert-icon">⚠</span>
+        <span class="alert-text">{{ errorMessage }}</span>
+      </div>
+
+      <!-- OTP Form -->
+      <form (ngSubmit)="verifyOtp()" class="otp-form">
+        <!-- OTP Input -->
+        <div class="form-field">
+          <label for="otp" class="form-label">Enter OTP</label>
+          <input
+            id="otp"
+            type="text"
+            [(ngModel)]="otp"
+            name="otp"
+            placeholder=""
+            class="form-input otp-input"
+            [disabled]="isLoading"
+            maxlength="6"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+          >
+        </div>
+
+        <!-- Continue Button -->
+        <button
+          type="submit"
+          class="btn-continue"
+          [disabled]="isLoading"
+        >
+          <span *ngIf="!isLoading">Continue</span>
+          <span *ngIf="isLoading" class="loading-text">Verifying...</span>
+        </button>
+
+        <!-- Resend OTP Link -->
+        <div class="otp-actions">
+          <a href="#" class="resend-otp-link" (click)="resendOtp()">Resend OTP</a>
+        </div>
+
+        <!-- Alternative Methods -->
+        <div class="divider">
+          <span class="divider-text">or</span>
+        </div>
+
+        <!-- WhatsApp OTP Button -->
+        <button
+          type="button"
+          class="btn-alternative"
+          (click)="sendOtpWhatsApp()"
+          [disabled]="isLoading"
+        >
+          Send OTP to WhatsApp
+        </button>
+
+        <!-- Password Sign In Button -->
+        <button
+          type="button"
+          class="btn-alternative"
+          (click)="signInWithPassword()"
+          [disabled]="isLoading"
+        >
+          Sign in with your password
+        </button>
+      </form>
+    </ng-container>
+
+  </div>
+</div>

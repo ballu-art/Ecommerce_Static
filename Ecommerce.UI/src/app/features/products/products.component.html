@@ -1,0 +1,254 @@
+<!-- Page Banner -->
+<section class="page-banner">
+  <div class="banner-overlay"></div>
+  <div class="banner-content">
+    <h1 class="banner-title">Our Products & Solutions</h1>
+    <p class="banner-subtitle">Enterprise technology solutions for modern businesses</p>
+    <a *ngIf="isAdmin" routerLink="/admin/products" class="admin-btn">
+      ⚙️ Manage Products
+    </a>
+  </div>
+</section>
+
+<!-- Category Filter Bar -->
+<section class="filter-bar">
+  <div class="filter-container">
+    <div class="filter-controls">
+      <!-- Search Input -->
+      <div class="search-wrapper">
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          placeholder="Search products..." 
+          class="search-input"
+        >
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </div>
+
+      <!-- Category Dropdown -->
+      <div class="filter-dropdown-wrapper">
+        <label class="filter-label">Category:</label>
+        <select 
+          [(ngModel)]="selectedCategory"
+          (change)="onCategoryChange(selectedCategory)"
+          class="category-dropdown"
+        >
+          <option *ngFor="let cat of categories" [value]="cat">
+            {{ cat === 'all' ? 'All Products' : cat }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Sort Dropdown -->
+      <div class="filter-dropdown-wrapper">
+        <label class="filter-label">Sort:</label>
+        <select 
+          [(ngModel)]="sortBy"
+          class="category-dropdown"
+        >
+          <option value="featured">Featured</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="rating">Highest Rated</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Product Grid with Lazy Loading -->
+<section class="bg-white py-8 pb-16">
+  <div class="max-w-7xl mx-auto px-2 sm:px-3 lg:px-4">
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 mb-6 mt-4">
+      <div 
+        *ngFor="let product of getFilteredProducts()" 
+        class="product-card bg-white flex flex-col group"
+      >
+        <!-- Product Image Container - Classic Style -->
+        <div class="relative h-52 sm:h-64 md:h-72 flex items-center justify-center bg-gray-50 border border-gray-300 overflow-hidden mb-3 rounded">
+          <!-- Product Image -->
+          <img 
+            [src]="product.image" 
+            [alt]="product.name"
+            class="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-300"
+            loading="lazy"
+          >
+          
+          <!-- Badge - Classic Style -->
+          <div *ngIf="product.badge" class="absolute top-3 left-3 bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded shadow-md">
+            {{ product.badge }}
+          </div>
+        </div>
+
+        <!-- Product Content -->
+        <div class="flex flex-col flex-grow px-3 py-2 sm:px-4 sm:py-3">
+          
+          <!-- Product Title - Compact -->
+          <h3 class="text-xs sm:text-sm font-semibold text-gray-900 line-clamp-2 mb-2 leading-tight hover:text-blue-600 transition-colors cursor-pointer">
+            {{ product.name }}
+          </h3>
+
+          <!-- Rating Section -->
+          <div class="flex items-center gap-1 mb-2 text-xs">
+            <div class="flex text-orange-400 gap-0">
+              <span *ngFor="let star of [1,2,3,4,5]" class="text-xs">★</span>
+            </div>
+            <span class="text-gray-500 ml-1">({{ product.reviews }})</span>
+          </div>
+
+          <!-- Price Section -->
+          <div class="mb-2 pb-2 border-b border-gray-100">
+            <div class="flex items-baseline gap-2">
+              <p class="text-lg sm:text-xl font-bold text-gray-900">{{ product.currentPrice | number }}</p>
+              <p class="text-xs text-gray-500 line-through">{{ product.originalPrice | number }}</p>
+              <p *ngIf="product.discount" class="text-xs font-bold text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded">{{ product.discount }}% off</p>
+            </div>
+          </div>
+
+          <!-- Stock Status -->
+          <p class="text-xs text-green-700 font-bold mb-3">In Stock</p>
+
+          <!-- Buttons - Creative Design -->
+          <div class="product-buttons-wrapper">
+            <!-- Add to Cart Button - Creative Green -->
+            <button 
+              (click)="addToCart(product)"
+              class="btn-product btn-add-cart-creative"
+              title="Add to cart"
+            >
+              <svg class="btn-svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <span>Cart</span>
+            </button>
+            
+            <!-- View Details Button - Creative Blue -->
+            <button 
+              [routerLink]="['/product', product.id]"
+              class="btn-product btn-view-creative"
+              title="View product details"
+            >
+              <svg class="btn-svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <span>View</span>
+            </button>
+            
+            <!-- WhatsApp Button - Creative Green/White -->
+            <button 
+              (click)="openWhatsApp(product)"
+              class="btn-product btn-whatsapp-creative"
+              title="Request a quote on WhatsApp"
+            >
+              <svg class="btn-svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.255.949c-2.587 1.549-4.505 4.1-4.505 7.393 0 5.255 4.418 9.558 9.882 9.558 1.674 0 3.25-.356 4.691-.999l3.287.546-.556-3.338a9.466 9.466 0 001.449-4.773c0-5.255-4.418-9.558-9.882-9.558"></path>
+              </svg>
+              <span>Message</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="getFilteredProducts().length === 0 && displayedProducts.length === 0" class="text-center py-16">
+      <div class="text-5xl mb-4 opacity-50">📦</div>
+      <p class="text-xl font-bold text-gray-600 mb-2">No products found</p>
+      <p class="text-gray-500">Try adjusting your filters</p>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoadingMore" class="flex justify-center py-8">
+      <div class="text-center">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500"></div>
+        <p class="text-gray-600 mt-2 text-sm">Loading more products...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section with enhanced animation -->
+<section class="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 text-white py-20 relative overflow-hidden">
+  <!-- Animated background -->
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-1/2 left-1/4 w-96 h-96 bg-white rounded-full animate-pulse"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-white rounded-full animate-pulse" style="animation-delay: 1.5s"></div>
+    </div>
+  </div> 
+</section>
+
+<!-- WhatsApp Modal -->
+<div *ngIf="showWhatsappModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-scale-in">
+    <!-- Modal Header -->
+    <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6">
+      <div class="text-5xl mb-3 text-center">💬</div>
+      <h2 class="text-2xl font-bold text-center">Send via WhatsApp</h2>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="p-6 space-y-4">
+      <!-- Product Image -->
+      <div *ngIf="selectedProductForQuote" class="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+        <img 
+          [src]="selectedProductForQuote.image" 
+          [alt]="selectedProductForQuote.name"
+          class="w-full h-48 object-contain p-4 bg-white"
+          onerror="this.style.display='none'"
+        >
+        <div class="p-4 bg-white border-t border-gray-200">
+          <h3 class="font-bold text-gray-900 mb-1 text-sm">{{ selectedProductForQuote.name }}</h3>
+          <p class="text-xs text-gray-600 mb-2">{{ selectedProductForQuote.description }}</p>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-sm font-bold text-gray-900">₹{{ selectedProductForQuote.currentPrice | number }}</span>
+            <span class="text-xs line-through text-gray-500">₹{{ selectedProductForQuote.originalPrice | number }}</span>
+            <span *ngIf="selectedProductForQuote.discount" class="text-xs font-bold text-white bg-green-600 px-2 py-0.5 rounded">
+              {{ selectedProductForQuote.discount }}% off
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-gray-700 text-center">
+        <span class="font-semibold text-lg">Open WhatsApp and send us your inquiry</span>
+      </p>
+
+      <div class="bg-green-50 border-2 border-green-200 rounded-lg p-4">
+        <p class="text-sm text-gray-700 mb-3">WhatsApp will open in a new window with your message:</p>
+        <p class="text-sm font-semibold text-green-700 italic">
+          "Hi, I'm interested in {{ selectedProductForQuote?.name }}. Can you provide me with a quotation and more details?"
+        </p>
+      </div>
+
+      <!-- Instructions -->
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+        <p class="text-xs text-gray-600">
+          <strong>📱 Note:</strong> You need WhatsApp installed on your device or WhatsApp Web open in your browser to send the message.
+        </p>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="bg-gray-50 px-6 py-4 flex gap-3">
+      <button
+        (click)="closeWhatsappModal()"
+        class="flex-1 px-4 py-2 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="confirmWhatsApp()"
+        class="flex-1 px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
+      >
+        Open WhatsApp
+      </button>
+    </div>
+  </div>
+</div>

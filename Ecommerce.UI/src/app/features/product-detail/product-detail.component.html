@@ -1,0 +1,176 @@
+<!-- Breadcrumb -->
+<section class="bg-gray-100 border-b border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center gap-2 text-sm text-gray-600">
+      <a href="/" class="hover:text-yellow-600 transition-colors">Home</a>
+      <span class="text-gray-400">/</span>
+      <a href="/products" class="hover:text-yellow-600 transition-colors">Products</a>
+      <span class="text-gray-400">/</span>
+      <span class="text-yellow-600 font-semibold">{{ product?.name }}</span>
+    </div>
+  </div>
+</section>
+
+<!-- Product Detail Section -->
+<section *ngIf="product" class="py-8 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- Product Image -->
+      <div class="flex flex-col">
+        <div class="flex-1 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg p-12 flex items-center justify-center mb-4 min-h-96">
+          <div class="text-9xl">{{ product.image }}</div>
+        </div>
+        <!-- Additional Images (placeholder) -->
+        <div class="flex gap-2">
+          <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 transition-colors">
+            <span class="text-3xl">{{ product.image }}</span>
+          </div>
+          <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 transition-colors opacity-50">
+            <span class="text-3xl">{{ product.image }}</span>
+          </div>
+          <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-300 transition-colors opacity-50">
+            <span class="text-3xl">{{ product.image }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Details -->
+      <div>
+        <!-- Badge -->
+        <div *ngIf="product.badge" class="inline-block bg-yellow-600 text-white text-sm font-bold px-4 py-1 rounded-full mb-3">
+          {{ product.badge }}
+        </div>
+
+        <!-- Name -->
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">{{ product.name }}</h1>
+
+        <!-- Rating -->
+        <div class="flex items-center gap-3 mb-4">
+          <div class="flex text-yellow-500 text-lg">★★★★★</div>
+          <span class="text-gray-700 font-semibold">{{ product.rating }}</span>
+          <span class="text-gray-500">({{ product.reviews }} reviews)</span>
+          <span class="text-gray-400 ml-2">50K+ bought in past month</span>
+        </div>
+
+        <!-- Price Section -->
+        <div class="border-t border-b border-gray-300 py-4 mb-4">
+          <div class="mb-4">
+            <span class="text-4xl font-bold text-yellow-600">{{ product.price }}</span>
+          </div>
+          <p class="text-green-600 text-sm font-semibold">FREE Consultation Included</p>
+        </div>
+
+        <!-- Description -->
+        <p class="text-gray-700 text-lg mb-6 leading-relaxed">
+          {{ product.longDescription }}
+        </p>
+
+        <!-- Options -->
+        <div class="mb-6">
+          <div class="mb-4">
+            <label class="block text-sm font-semibold text-gray-900 mb-2">Package Type</label>
+            <div class="flex gap-2">
+              <button 
+                *ngFor="let pkg of ['Basic', 'Professional', 'Enterprise']"
+                (click)="selectedPackage = pkg"
+                [class.bg-yellow-600]="selectedPackage === pkg"
+                [class.text-white]="selectedPackage === pkg"
+                [class.bg-gray-200]="selectedPackage !== pkg"
+                [class.text-gray-900]="selectedPackage !== pkg"
+                class="px-4 py-2 rounded-lg font-semibold transition-colors"
+              >
+                {{ pkg }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Quantity -->
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-gray-900 mb-2">Quantity</label>
+            <div class="flex items-center gap-3 border border-gray-300 rounded-lg w-fit">
+              <button (click)="decreaseQuantity()" class="px-4 py-2 hover:bg-gray-100 transition-colors">−</button>
+              <span class="px-6 py-2 font-semibold">{{ quantity }}</span>
+              <button (click)="increaseQuantity()" class="px-4 py-2 hover:bg-gray-100 transition-colors">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex flex-col gap-3 mb-6">
+          <button 
+            (click)="openWhatsApp()"
+            class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 text-lg"
+          >
+            💬 Request Quote via WhatsApp
+          </button>
+          <button 
+            (click)="addToCart()"
+            class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 text-lg"
+          >
+            🛒 Get in Touch
+          </button>
+        </div>
+
+        <!-- Features List -->
+        <div class="bg-gray-50 rounded-lg p-6 mb-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Key Features</h3>
+          <ul class="space-y-3">
+            <li *ngFor="let feature of product.features" class="flex items-start gap-3">
+              <span class="text-yellow-600 text-xl font-bold">✓</span>
+              <span class="text-gray-700">{{ feature }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="flex gap-4 text-sm text-gray-600 bg-gray-50 p-4 rounded-lg">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🛡️</span>
+            <span><strong>Secure</strong> Transactions</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">⏱️</span>
+            <span><strong>Fast</strong> Response</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Specifications Section -->
+<section *ngIf="product" class="py-12 bg-gray-50 border-t border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-8">Specifications</h2>
+    <div class="bg-white rounded-lg overflow-hidden shadow-md">
+      <table class="w-full">
+        <tbody>
+          <tr *ngFor="let spec of (product.specifications | keyvalue); let last = last" 
+              [class.border-b]="!last"
+              class="border-gray-300">
+            <td class="py-4 px-6 font-semibold text-gray-900 bg-gray-50 w-1/3">{{ spec.key }}</td>
+            <td class="py-4 px-6 text-gray-700">{{ spec.value }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Related Products Section -->
+<section class="py-12 bg-white border-t border-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-8">Frequently Bought Together</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div *ngFor="let item of [1, 2, 3, 4]" class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+        <div class="h-32 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+          <span class="text-4xl">{{ ['💻', '📱', '☁️', '📊'][item-1] }}</span>
+        </div>
+        <div class="p-4">
+          <h4 class="font-bold text-gray-900 mb-2">{{ ['Web Dev', 'Mobile Apps', 'Cloud', 'Analytics'][item-1] }}</h4>
+          <p class="text-yellow-600 font-bold">Quote</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

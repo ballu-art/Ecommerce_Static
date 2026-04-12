@@ -1,0 +1,541 @@
+/* ============================================================
+   LOGIN PAGE - Amazon-Style Minimalist Design
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  color: #111827;
+}
+
+/* ============================================================
+   LOGIN CARD - Main Form Container
+   ============================================================ */
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px 32px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  margin: 24px 0;
+}
+
+.login-title {
+  margin: 0 0 20px 0;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #111827;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============================================================
+   ALERT - Error Messages
+   ============================================================ */
+
+.alert-box {
+  background-color: #fff6f6;
+  border: 1px solid #ffc9c9;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #7f1d1d;
+}
+
+.alert-icon {
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.alert-text {
+  flex: 1;
+}
+
+/* ============================================================
+   FORM - Layout and Structure
+   ============================================================ */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.form-field:last-of-type {
+  margin-bottom: 0;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+/* ============================================================
+   INPUT FIELD - Email/Password
+   ============================================================ */
+
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #111827;
+  background-color: #fff;
+  font-family: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-input::placeholder {
+  color: #999;
+}
+
+.form-input:hover {
+  border-color: #999;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #fbbf24;
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+  border-width: 1px;
+}
+
+.form-input:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ============================================================
+   PASSWORD INPUT - With Eye Icon
+   ============================================================ */
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper .form-input {
+  padding-right: 40px;
+}
+
+.password-eye-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  transition: color 0.15s ease;
+  width: 32px;
+  height: 32px;
+}
+
+.password-eye-btn:hover:not(:disabled) {
+  color: #fbbf24;
+}
+
+.password-eye-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.password-eye-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* ============================================================
+   BUTTONS - Continue & Sign In
+   ============================================================ */
+
+.btn-continue {
+  width: 100%;
+  padding: 10px 0;
+  margin: 16px 0 0 0;
+  background-color: #fbbf24;
+  border: 1px solid #946d00;
+  border-radius: 4px;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-continue:hover:not(:disabled) {
+  background-color: #f59e0b;
+  border-color: #a16207;
+}
+
+.btn-continue:active:not(:disabled) {
+  background-color: #d97706;
+}
+
+.btn-continue:disabled {
+  background-color: #d1b563;
+  border-color: #999;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.loading-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ============================================================
+   DIVIDER - Between Email and Password
+   ============================================================ */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: #666;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
+.divider-text {
+  font-size: 12px;
+  color: #666;
+  font-weight: 400;
+}
+
+/* ============================================================
+   LINKS - Forgot Password, Create Account
+   ============================================================ */
+
+.forgot-password-link {
+  text-align: center;
+  margin-top: 12px;
+  display: block;
+  font-size: 12px;
+  color: #0066cc;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.forgot-password-link:hover {
+  color: #004ba0;
+  text-decoration: underline;
+}
+
+/* ============================================================
+   TERMS - Conditions of Use & Privacy
+   ============================================================ */
+
+.terms-text {
+  margin: 16px 0 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.terms-text a {
+  color: #0066cc;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.terms-text a:hover {
+  color: #004ba0;
+  text-decoration: underline;
+}
+
+/* ============================================================
+   CREATE ACCOUNT SECTION
+   ============================================================ */
+
+.create-account-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.section-title {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.5;
+}
+
+.create-account-link {
+  display: block;
+  padding: 0;
+  background-color: #e7e7e7;
+  border: 1px solid #999;
+  border-radius: 4px;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1.5;
+}
+
+.create-account-link:hover {
+  background-color: #d5d5d5;
+  border-color: #666;
+}
+
+.create-account-link:active {
+  background-color: #bbb;
+}
+
+/* ============================================================
+   OTP VERIFICATION - Authentication Required Section
+   ============================================================ */
+
+.auth-title {
+  margin: 0 0 24px 0;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #111827;
+  text-rendering: optimizeLegibility;
+}
+
+.mobile-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 12px 0;
+}
+
+.mobile-number {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.change-link {
+  font-size: 13px;
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s ease;
+  cursor: pointer;
+}
+
+.change-link:hover {
+  color: #004ba0;
+  text-decoration: underline;
+}
+
+.otp-message {
+  margin: 0 0 20px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.otp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.otp-input {
+  font-size: 18px;
+  letter-spacing: 4px;
+  text-align: center;
+  font-weight: 500;
+  font-family: 'Courier New', monospace;
+}
+
+.otp-actions {
+  text-align: center;
+  margin: 16px 0 0 0;
+}
+
+.resend-otp-link {
+  font-size: 13px;
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s ease;
+  cursor: pointer;
+}
+
+.resend-otp-link:hover {
+  color: #004ba0;
+  text-decoration: underline;
+}
+
+/* ============================================================
+   ALTERNATIVE AUTH BUTTONS - WhatsApp & Password
+   ============================================================ */
+
+.btn-alternative {
+  width: 100%;
+  padding: 10px 0;
+  margin: 8px 0 0 0;
+  background-color: transparent;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.btn-alternative:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  border-color: #999;
+}
+
+.btn-alternative:active:not(:disabled) {
+  background-color: #e7e7e7;
+}
+
+.btn-alternative:disabled {
+  background-color: #f5f5f5;
+  border-color: #ddd;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+
+@media (max-width: 600px) {
+  .login-card {
+    padding: 16px;
+    border: none;
+    box-shadow: none;
+    margin: 12px 0;
+  }
+
+  .login-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .btn-continue {
+    padding: 9px 0;
+    font-size: 12px;
+  }
+
+  .form-input {
+    padding: 9px 10px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .login-footer {
+    padding: 24px 12px 12px;
+  }
+
+  .footer-links {
+    font-size: 11px;
+  }
+
+  .footer-links a {
+    margin: 0 4px;
+  }
+
+  .separator {
+    margin: 0 2px;
+  }
+}
+
+@media (max-width: 400px) {
+  .login-card {
+    max-width: 100%;
+  }
+
+  .login-title {
+    font-size: 20px;
+  }
+
+  .alert-box {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .form-label {
+    font-size: 12px;
+  }
+
+  .form-input {
+    font-size: 16px;
+  }
+}

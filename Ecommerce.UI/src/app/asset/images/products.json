@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "name": "Tile Adhesives - Pack 1",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 1722,
+    "originalPrice": 1913,
+    "discount": 10,
+    "priceRange": "From 1722",
+    "rating": 4.2,
+    "reviews": 311,
+    "image": "/images/product/p1.png",
+    "badge": "Trending",
+    "category": "Tile Adhesives",
+    "features": [
+      "Water-tight",
+      "Stain-resistant",
+      "Color-fast"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Tile Adhesives - Pack 2",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 448,
+    "originalPrice": 509,
+    "discount": 12,
+    "priceRange": "From 448",
+    "rating": 4.3,
+    "reviews": 275,
+    "image": "/images/product/p2.png",
+    "badge": "Popular",
+    "category": "Tile Adhesives",
+    "features": [
+      "UV resistant",
+      "Weatherproof",
+      "Long lasting"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Tile Adhesives - Pack 3",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 262,
+    "originalPrice": 444,
+    "discount": 41,
+    "priceRange": "From 262",
+    "rating": 3.8,
+    "reviews": 210,
+    "image": "/images/product/p3.png",
+    "badge": null,
+    "category": "Tile Adhesives",
+    "features": [
+      "Bright white",
+      "Fine finish",
+      "Durable"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Tile Adhesives - Pack 4",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 1379,
+    "originalPrice": 1641,
+    "discount": 16,
+    "priceRange": "From 1379",
+    "rating": 4.1,
+    "reviews": 221,
+    "image": "/images/product/p4.png",
+    "badge": "Popular",
+    "category": "Tile Adhesives",
+    "features": [
+      "Quick Cure",
+      "Weatherproof",
+      "Durable"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Tile Adhesives - Pack 5",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 2189,
+    "originalPrice": 3840,
+    "discount": 43,
+    "priceRange": "From 2189",
+    "rating": 4.2,
+    "reviews": 253,
+    "image": "/images/product/p5.png",
+    "badge": null,
+    "category": "Tile Adhesives",
+    "features": [
+      "Universal Bond",
+      "Strong Hold",
+      "Professional grade"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Tile Adhesives - Pack 6",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 1642,
+    "originalPrice": 2132,
+    "discount": 23,
+    "priceRange": "From 1642",
+    "rating": 4.1,
+    "reviews": 168,
+    "image": "/images/product/p6.png",
+    "badge": null,
+    "category": "Tile Adhesives",
+    "features": [
+      "UV Protection",
+      "Non-slip",
+      "Enhances Beauty"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Tile Adhesives - Pack 7",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 1506,
+    "originalPrice": 2214,
+    "discount": 32,
+    "priceRange": "From 1506",
+    "rating": 4.4,
+    "reviews": 33,
+    "image": "/images/product/p7.png",
+    "badge": "Popular",
+    "category": "Tile Adhesives",
+    "features": [
+      "Bright white",
+      "Fine finish",
+      "Durable"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Tile Adhesives - Pack 8",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 292,
+    "originalPrice": 335,
+    "discount": 13,
+    "priceRange": "From 292",
+    "rating": 4,
+    "reviews": 212,
+    "image": "/images/product/p8.png",
+    "badge": "Trending",
+    "category": "Tile Adhesives",
+    "features": [
+      "Quick Cure",
+      "Weatherproof",
+      "Durable"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Tile Adhesives - Pack 9",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 1796,
+    "originalPrice": 2163,
+    "discount": 17,
+    "priceRange": "From 1796",
+    "rating": 3.9,
+    "reviews": 35,
+    "image": "/images/product/p9.png",
+    "badge": null,
+    "category": "Tile Adhesives",
+    "features": [
+      "Water-tight",
+      "Stain-resistant",
+      "Color-fast"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Tile Adhesives - Pack 10",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 1777,
+    "originalPrice": 2575,
+    "discount": 31,
+    "priceRange": "From 1777",
+    "rating": 3.8,
+    "reviews": 262,
+    "image": "/images/product/p10.png",
+    "badge": null,
+    "category": "Tile Adhesives",
+    "features": [
+      "Multi-purpose",
+      "Eco-friendly",
+      "Advanced formula"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Tile Adhesives - Pack 11",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 928,
+    "originalPrice": 987,
+    "discount": 6,
+    "priceRange": "From 928",
+    "rating": 4.1,
+    "reviews": 207,
+    "image": "/images/product/p11.png",
+    "badge": null,
+    "category": "Tile Adhesives",
+    "features": [
+      "Quick Cure",
+      "Weatherproof",
+      "Durable"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Tile Adhesives - Pack 12",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 1782,
+    "originalPrice": 2700,
+    "discount": 34,
+    "priceRange": "From 1782",
+    "rating": 3.9,
+    "reviews": 169,
+    "image": "/images/product/p12.png",
+    "badge": "Best Seller",
+    "category": "Tile Adhesives",
+    "features": [
+      "Long-lasting",
+      "Water-resistant",
+      "Quick setting"
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Tile Adhesives - Pack 13",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 1037,
+    "originalPrice": 1234,
+    "discount": 16,
+    "priceRange": "From 1037",
+    "rating": 4.1,
+    "reviews": 118,
+    "image": "/images/product/p13.png",
+    "badge": null,
+    "category": "Tile Adhesives",
+    "features": [
+      "Quick Cure",
+      "Weatherproof",
+      "Durable"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Tile Adhesives - Pack 14",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 2103,
+    "originalPrice": 3755,
+    "discount": 44,
+    "priceRange": "From 2103",
+    "rating": 4.6,
+    "reviews": 183,
+    "image": "/images/product/p14.png",
+    "badge": "Popular",
+    "category": "Tile Adhesives",
+    "features": [
+      "Long-lasting",
+      "Water-resistant",
+      "Quick setting"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Tile Adhesives - Pack 15",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 935,
+    "originalPrice": 1087,
+    "discount": 14,
+    "priceRange": "From 935",
+    "rating": 5,
+    "reviews": 26,
+    "image": "/images/product/p15.png",
+    "badge": "Popular",
+    "category": "Tile Adhesives",
+    "features": [
+      "Bright white",
+      "Fine finish",
+      "Durable"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Tile Adhesives - Pack 16",
+    "description": "Premium quality tile adhesives with excellent durability and performance. Suitable for professional and commercial use.",
+    "price": "Contact for Quote",
+    "currentPrice": 2182,
+    "originalPrice": 2397,
+    "discount": 9,
+    "priceRange": "From 2182",
+    "rating": 4.6,
+    "reviews": 302,
+    "image": "/images/product/p16.png",
+    "badge": "Best Seller",
+    "category": "Tile Adhesives",
+    "features": [
+      "Multi-purpose",
+      "Eco-friendly",
+      "Advanced formula"
+    ]
+  } 
+]

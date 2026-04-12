@@ -1,0 +1,126 @@
+<!-- Page Banner -->
+<section class="page-banner">
+  <div class="banner-overlay"></div>
+  <div class="banner-content">
+    <h1 class="banner-title">Contact Us</h1>
+    <p class="banner-subtitle">We'd love to hear from you. Get in touch with us today.</p>
+  </div>
+</section> 
+
+<!-- Contact Section -->
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <!-- Contact Information -->
+      <div>
+        <h2 class="text-3xl font-bold mb-8">Get in Touch</h2>
+        
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold mb-2">📍 Address</h3>
+          <p class="text-gray-600"> Surendranagar, Gujarat, India.</p>
+        </div>
+
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold mb-2">📞 Phone</h3>
+          <p class="text-gray-600">+91 84017 77499</p>
+        </div>
+
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold mb-2">📧 Email</h3>
+          <p class="text-gray-600">vinayakenterprise028@gmail.com</p>
+        </div>
+
+        <div class="mb-8">
+          <h3 class="text-xl font-semibold mb-2">🕐 Business Hours</h3>
+          <p class="text-gray-600">Monday - Friday : 9:00 AM - 7:00 PM<br>Saturday: 10:00 AM - 4:00 PM<br>Sunday: Closed</p>
+        </div>
+
+        <div class="mt-12">
+          <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
+          <div class="flex space-x-4">
+            <a href="#" class="text-blue-600 hover:text-blue-800 text-2xl">f</a>
+            <a href="#" class="text-blue-600 hover:text-blue-800 text-2xl">𝕏</a>
+            <a href="#" class="text-blue-600 hover:text-blue-800 text-2xl">in</a>
+            <a href="#" class="text-blue-600 hover:text-blue-800 text-2xl">📷</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="bg-gray-50 p-8 rounded-lg">
+        <h2 class="text-3xl font-bold mb-6">Send us a Message</h2>
+        
+        <div *ngIf="submitted" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+          ✓ Thank you! Your message has been sent successfully. We'll get back to you soon.
+        </div>
+
+        <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+          ✗ {{ errorMessage }}
+        </div>
+
+        <form (ngSubmit)="submitForm()">
+          <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2">Name</label>
+            <input 
+              type="text" 
+              [(ngModel)]="formData.name" 
+              name="name"
+              placeholder="Your Name" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+              required
+              [disabled]="isLoading"
+            >
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2">Email</label>
+            <input 
+              type="email" 
+              [(ngModel)]="formData.email" 
+              name="email"
+              placeholder="your@email.com" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+              required
+              [disabled]="isLoading"
+            >
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2">Subject</label>
+            <input 
+              type="text" 
+              [(ngModel)]="formData.subject" 
+              name="subject"
+              placeholder="How can we help?" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+              [disabled]="isLoading"
+            >
+          </div>
+
+          <div class="mb-6">
+            <label class="block text-gray-700 font-semibold mb-2">Message</label>
+            <textarea 
+              [(ngModel)]="formData.message" 
+              name="message"
+              placeholder="Your message here..." 
+              rows="5"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+              required
+              [disabled]="isLoading"
+            ></textarea>
+          </div>
+
+          <button 
+            type="submit" 
+            [disabled]="isLoading"
+            [class.opacity-50]="isLoading"
+            [class.cursor-not-allowed]="isLoading"
+            class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors disabled:hover:bg-blue-600"
+          >
+            {{ isLoading ? 'Sending...' : 'Send Message' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

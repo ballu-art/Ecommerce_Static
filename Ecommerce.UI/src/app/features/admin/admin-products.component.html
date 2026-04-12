@@ -1,0 +1,347 @@
+<div class="admin-container">
+  <!-- Header -->
+  <div class="admin-header">
+    <h1>Product Management</h1>
+    <button class="btn btn-primary" (click)="showAddForm()" *ngIf="!showForm">
+      <span class="btn-icon">+</span> Add New Product
+    </button>
+  </div>
+
+  <!-- Messages -->
+  <div class="messages-container">
+    <div class="alert alert-success" *ngIf="successMessage">
+      <span class="alert-icon">✓</span> {{ successMessage }}
+    </div>
+    <div class="alert alert-error" *ngIf="errorMessage">
+      <span class="alert-icon">✕</span> {{ errorMessage }}
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div *ngIf="showForm" class="form-section">
+    <div class="form-card">
+      <h2>{{ isEditMode ? 'Edit Product' : 'Add New Product' }}</h2>
+      
+      <form [formGroup]="productForm" (ngSubmit)="saveProduct()" class="form-grid">
+        
+        <!-- Row 1: Name & Category -->
+        <div class="form-group">
+          <label for="name" class="form-label">Product Name *</label>
+          <input 
+            id="name"
+            type="text" 
+            formControlName="name"
+            placeholder="Enter product name"
+            class="form-input"
+            [class.is-invalid]="hasFieldError('name')"
+          >
+          <span class="field-error" *ngIf="hasFieldError('name')">
+            {{ getFieldError('name') }}
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="category" class="form-label">Category *</label>
+          <select 
+            id="category"
+            formControlName="category"
+            class="form-input"
+            [class.is-invalid]="hasFieldError('category')"
+          >
+            <option value="">Select Category</option>
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+          </select>
+          <span class="field-error" *ngIf="hasFieldError('category')">
+            {{ getFieldError('category') }}
+          </span>
+        </div>
+
+        <!-- Row 2: Current Price & Original Price -->
+        <div class="form-group">
+          <label for="currentPrice" class="form-label">Current Price (₹) *</label>
+          <input 
+            id="currentPrice"
+            type="number" 
+            formControlName="currentPrice"
+            placeholder="0.00"
+            class="form-input"
+            [class.is-invalid]="hasFieldError('currentPrice')"
+            min="0"
+            step="0.01"
+          >
+          <span class="field-error" *ngIf="hasFieldError('currentPrice')">
+            {{ getFieldError('currentPrice') }}
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="originalPrice" class="form-label">Original Price (₹) *</label>
+          <input 
+            id="originalPrice"
+            type="number" 
+            formControlName="originalPrice"
+            placeholder="0.00"
+            class="form-input"
+            [class.is-invalid]="hasFieldError('originalPrice')"
+            min="0"
+            step="0.01"
+          >
+          <span class="field-error" *ngIf="hasFieldError('originalPrice')">
+            {{ getFieldError('originalPrice') }}
+          </span>
+        </div>
+
+        <!-- Row 3: Discount & Rating -->
+        <div class="form-group">
+          <label for="discount" class="form-label">Discount (%) *</label>
+          <input 
+            id="discount"
+            type="number" 
+            formControlName="discount"
+            placeholder="0"
+            class="form-input"
+            [class.is-invalid]="hasFieldError('discount')"
+            min="0"
+            max="100"
+          >
+          <span class="field-error" *ngIf="hasFieldError('discount')">
+            {{ getFieldError('discount') }}
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="rating" class="form-label">Rating *</label>
+          <input 
+            id="rating"
+            type="number" 
+            formControlName="rating"
+            placeholder="0.0"
+            class="form-input"
+            [class.is-invalid]="hasFieldError('rating')"
+            min="0"
+            max="5"
+            step="0.1"
+          >
+          <span class="field-error" *ngIf="hasFieldError('rating')">
+            {{ getFieldError('rating') }}
+          </span>
+        </div>
+
+        <!-- Row 4: Reviews & Badge -->
+        <div class="form-group">
+          <label for="reviews" class="form-label">Number of Reviews *</label>
+          <input 
+            id="reviews"
+            type="number" 
+            formControlName="reviews"
+            placeholder="0"
+            class="form-input"
+            [class.is-invalid]="hasFieldError('reviews')"
+            min="0"
+          >
+          <span class="field-error" *ngIf="hasFieldError('reviews')">
+            {{ getFieldError('reviews') }}
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="badge" class="form-label">Badge</label>
+          <select id="badge" formControlName="badge" class="form-input">
+            <option value="">No Badge</option>
+            <option value="Popular">Popular</option>
+            <option value="Best Seller">Best Seller</option>
+            <option value="Trending">Trending</option>
+          </select>
+        </div>
+
+        <!-- Full Row: Image URL with Preview -->
+        <div class="form-group full-width">
+          <label for="image" class="form-label">Product Image URL *</label>
+          
+          <!-- Image Preview -->
+          <div *ngIf="productForm.get('image')?.value" class="image-preview-container">
+            <img 
+              [src]="productForm.get('image')?.value" 
+              alt="Product Preview"
+              class="image-preview"
+              (error)="onImageError()"
+            >
+            <button 
+              type="button" 
+              class="remove-image-btn"
+              (click)="removeImage()"
+              title="Remove image"
+            >
+              ✕
+            </button>
+          </div>
+
+          <input 
+            id="image"
+            type="text" 
+            formControlName="image"
+            placeholder="e.g., /product/p1.jpg"
+            class="form-input"
+            [class.is-invalid]="hasFieldError('image')"
+          >
+          <span class="field-error" *ngIf="hasFieldError('image')">
+            {{ getFieldError('image') }}
+          </span>
+          <span class="field-help">Available images: /product/p1.jpg to p21.jpg, pb1.png to pb3.png</span>
+        </div>
+
+        <!-- Full Row: Description -->
+        <div class="form-group full-width">
+          <label for="description" class="form-label">Description *</label>
+          <textarea 
+            id="description"
+            formControlName="description"
+            placeholder="Enter product description..."
+            class="form-input form-textarea"
+            [class.is-invalid]="hasFieldError('description')"
+            rows="4"
+          ></textarea>
+          <span class="field-error" *ngIf="hasFieldError('description')">
+            {{ getFieldError('description') }}
+          </span>
+        </div>
+
+        <!-- Full Row: Features -->
+        <div class="form-group full-width">
+          <label for="features" class="form-label">Features (comma-separated)</label>
+          <input 
+            id="features"
+            type="text" 
+            formControlName="features"
+            placeholder="e.g.: Waterproof, Durable, UV Resistant"
+            class="form-input"
+          >
+          <span class="field-help">Enter features separated by commas</span>
+        </div>
+
+        <!-- Buttons -->
+        <div class="form-actions full-width">
+          <button type="submit" class="btn btn-success" [disabled]="!productForm.valid || isLoading">
+            {{ isLoading ? 'Saving...' : (isEditMode ? 'Update Product' : 'Create Product') }}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="cancelForm()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Search and Filter Section -->
+  <div class="filter-section">
+    <div class="filter-group">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (input)="onSearch()"
+        placeholder="Search products..."
+        class="search-input"
+      >
+    </div>
+    
+    <div class="filter-group">
+      <select [(ngModel)]="filterCategory" (change)="onFilterChange()" class="filter-select">
+        <option value="all">All Categories</option>
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+      </select>
+    </div>
+
+    <div class="filter-info">
+      <span class="badge badge-info">{{ getFilteredCount() }} products</span>
+    </div>
+  </div>
+
+  <!-- Products Grid/Table Section -->
+  <div class="products-section">
+    <div *ngIf="displayedProducts.length > 0; else noProducts" class="products-table-wrapper">
+      <table class="products-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Discount</th>
+            <th>Rating</th>
+            <th>Reviews</th>
+            <th>Badge</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of displayedProducts" class="product-row">
+            <td class="col-id">#{{ product.id }}</td>
+            <td class="col-name" title="{{ product.description }}">{{ product.name }}</td>
+            <td class="col-category"><span class="badge badge-category">{{ product.category }}</span></td>
+            <td class="col-price">
+              <span class="price-current">₹{{ product.currentPrice }}</span>
+              <span class="price-original">₹{{ product.originalPrice }}</span>
+            </td>
+            <td class="col-discount">
+              <span class="discount-badge">{{ product.discount }}%</span>
+            </td>
+            <td class="col-rating">
+              <span class="rating">{{ product.rating }} ⭐</span>
+            </td>
+            <td class="col-reviews">{{ product.reviews }} reviews</td>
+            <td class="col-badge">
+              <span *ngIf="product.badge" class="badge badge-trend">{{ product.badge }}</span>
+              <span *ngIf="!product.badge" class="text-gray">—</span>
+            </td>
+            <td class="col-actions">
+              <button 
+                class="btn-action btn-edit" 
+                (click)="editProduct(product)"
+                title="Edit product"
+              >
+                ✎ Edit
+              </button>
+              <button 
+                class="btn-action btn-delete" 
+                (click)="deleteProduct(product)"
+                title="Delete product"
+              >
+                ✕ Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noProducts>
+      <div class="no-products">
+        <div class="no-products-icon">📦</div>
+        <p>No products found</p>
+      </div>
+    </ng-template>
+
+    <!-- Pagination -->
+    <div *ngIf="getTotalPages() > 1" class="pagination">
+      <button 
+        class="btn btn-sm btn-pagination" 
+        (click)="prevPage()" 
+        [disabled]="currentPage === 1"
+      >
+        ← Previous
+      </button>
+      
+      <span class="pagination-info">
+        Page {{ currentPage }} of {{ getTotalPages() }}
+      </span>
+      
+      <button 
+        class="btn btn-sm btn-pagination" 
+        (click)="nextPage()" 
+        [disabled]="currentPage === getTotalPages()"
+      >
+        Next →
+      </button>
+    </div>
+  </div>
+</div>
