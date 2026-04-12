@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Ecommerce_Static": {
+    "Ecommerce": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-             "outputPath": "dist/Ecommerce_Static",
+             "outputPath": "dist/Ecommerce",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
@@ -57,10 +57,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Ecommerce_Static:build:production"
+              "buildTarget": "Ecommerce:build:production"
             },
             "development": {
-              "buildTarget": "Ecommerce_Static:build:development"
+              "buildTarget": "Ecommerce:build:development"
             }
           },
           "defaultConfiguration": "development"
