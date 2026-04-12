@@ -52,7 +52,7 @@ The application will open at `http://localhost:4200/`
 npm run build
 ```
 
-Output will be in the `dist/portfolio-website` directory.
+Output will be in the `dist/Ecommerce_Static` directory.
 
 ## Available Commands
 
