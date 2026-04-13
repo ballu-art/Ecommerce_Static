@@ -1,6 +1,12 @@
-/* Header component styles - Creative Classic Design */
+/* ============================================================
+   CLEAN RESPONSIVE HEADER - All Devices
+   Classic Design for Desktop, Tablet, and Mobile
+   ============================================================ */
 
-/* Sticky Header Styling */
+/* ============================================================
+   HEADER STRUCTURE & STICKY POSITIONING
+   ============================================================ */
+
 :host ::ng-deep header {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.3s ease;
@@ -10,9 +16,14 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-/* Top Info Bar Enhancement */
+/* ============================================================
+   TOP INFO BAR - All Devices
+   ============================================================ */
+
 .bg-gradient-to-r {
   position: relative;
+  padding: 8px 0 !important;
+  background: linear-gradient(to right, #b45309 0%, #ca8a04 100%) !important;
   overflow: hidden;
 }
 
@@ -23,24 +34,41 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 35px,
-    rgba(255, 255, 255, 0.05) 35px,
-    rgba(255, 255, 255, 0.05) 70px
-  );
+  background: repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(255, 255, 255, 0.05) 35px, rgba(255, 255, 255, 0.05) 70px);
   pointer-events: none;
 }
 
-/* Logo Image Styling - Elegant Classic */
+.bg-gradient-to-r .max-w-7xl {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+}
+
+.bg-gradient-to-r a,
+.bg-gradient-to-r span {
+  color: #ffffff;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.bg-gradient-to-r a:hover {
+  color: #fef3c7;
+}
+
+/* ============================================================
+   LOGO IMAGE STYLING
+   ============================================================ */
+
 .logo-img {
   height: 70px;
-  width: 140px;
+  width: auto;
   object-fit: contain;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
-  position: relative;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .logo-img:hover {
@@ -48,34 +76,40 @@
   transform: translateY(-2px) scale(1.05);
 }
 
-/* Mobile logo sizing */
-@media (max-width: 640px) {
-  .logo-img {
-    height: 40px;
-  }
+/* ============================================================
+   MAIN NAVIGATION - Desktop
+   ============================================================ */
+
+nav {
+  background: #0f172a;
 }
 
-/* Classic Menu Item Styling */
+nav .max-w-7xl {
+  padding: 12px 20px;
+}
+
+nav .flex.justify-between.items-center {
+  min-height: 80px;
+  gap: 12px;
+}
+
+/* ============================================================
+   DESKTOP MENU LINKS
+   ============================================================ */
+
 .menu-link {
   position: relative;
   display: inline-block;
   color: #ffffff;
   text-decoration: none;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 0.8px;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 12px 4px;
   text-transform: uppercase;
 }
 
-/* Mobile menu link adjustments */
-.md\:hidden .menu-link {
-  display: block;
-  padding: 12px 0;
-}
-
-/* Sophisticated underline animation */
 .menu-link::before {
   content: '';
   position: absolute;
@@ -100,7 +134,6 @@
   letter-spacing: 1px;
 }
 
-/* Active menu link - Classic elegance */
 .menu-link.active {
   color: #fbbf24;
 }
@@ -111,8 +144,15 @@
   background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
 }
 
-/* Live Brochure Button - Premium Classic */
+/* ============================================================
+   BROCHURE BUTTON - All Devices
+   ============================================================ */
+
 .brochure-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
   color: #1f2937;
   border: 2px solid #d97706;
@@ -121,27 +161,16 @@
   font-weight: 700;
   font-size: 13px;
   letter-spacing: 1px;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.15);
   text-transform: uppercase;
-  position: relative;
-  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.15);
 }
 
-.brochure-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  transition: left 0.35s ease;
-}
-
-.brochure-btn:hover::before {
-  left: 100%;
+.brochure-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
 }
 
 .brochure-btn:hover {
@@ -157,78 +186,15 @@
   box-shadow: 0 2px 8px rgba(251, 191, 36, 0.2);
 }
 
-/* Mobile Menu Button Classic Style */
-.mobile-menu-btn {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.3s ease;
-}
-
-.mobile-menu-btn span {
-  width: 24px;
-  height: 2px;
-  background-color: #ffffff;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 1px;
-}
-
-.mobile-menu-btn:hover span {
-  background-color: #fbbf24;
-}
-
-.mobile-menu-btn.active span:nth-child(1) {
-  transform: rotate(45deg) translate(11px, 11px);
-  background-color: #fbbf24;
-}
-
-.mobile-menu-btn.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.mobile-menu-btn.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -7px);
-  background-color: #fbbf24;
-}
-
-/* Contact link enhancement */
-a[href^="tel:"],
-a[href^="mailto:"] {
-  transition: color 0.3s ease;
-}
-
-a[href^="tel:"]:hover,
-a[href^="mailto:"]:hover {
-  color: #fef3c7 !important;
-}
-
-/* Navigation container refinement */
-.md\:flex {
-  align-items: center;
-}
-
-/* General spacing and typography refinements */
-@media (min-width: 768px) {
-  .md\:flex {
-    gap: 3rem;
-  }
-  
-  .space-x-8 > :not([hidden]) ~ :not([hidden]) {
-    margin-right: calc(2.5rem * var(--tw-space-x-reverse));
-    margin-left: calc(2.5rem * calc(1 - var(--tw-space-x-reverse)));
-  }
+/* Mobile/Tablet Brochure Button - Left Aligned */
+.brochure-btn-mobile {
+  justify-content: flex-start !important;
+  text-align: left;
+  width: 100%;
 }
 
 /* ============================================================
-   HEADER BUTTONS - Cart & Login
+   HEADER BUTTONS - Cart & Login (Desktop)
    ============================================================ */
 
 .header-btn {
@@ -236,13 +202,12 @@ a[href^="mailto:"]:hover {
   border: none;
   color: #ffffff;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   padding: 8px 12px;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 6px;
-  position: relative;
   border-radius: 4px;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -254,30 +219,82 @@ a[href^="mailto:"]:hover {
   transform: translateY(-2px);
 }
 
-/* Cart Button - Creative Design */
-.cart-btn {
-  position: relative;
-  padding: 8px 10px;
+.cart-icon,
+.login-icon,
+.user-icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  transition: all 0.3s ease;
 }
+
+.cart-btn:hover .cart-icon {
+  transform: scale(1.15) rotate(-8deg);
+  filter: drop-shadow(0 4px 8px rgba(251, 191, 36, 0.3));
+}
+
+.login-btn {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #111827;
+  border: 2px solid #d97706;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.25);
+}
+
+.login-btn:hover {
+  background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
+  border-color: #fbbf24;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.35);
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.user-btn {
+  padding: 10px 16px;
+  border-radius: 6px 0 0 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.logout-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 0 4px 4px 0;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   CART BADGE
+   ============================================================ */
 
 .cart-icon-wrapper {
   position: relative;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-}
-
-.cart-icon {
-  width: 22px;
-  height: 22px;
-  stroke: currentColor;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-.cart-btn:hover .cart-icon {
-  transform: scale(1.15) rotate(-8deg);
-  filter: drop-shadow(0 4px 8px rgba(251, 191, 36, 0.3));
 }
 
 .cart-badge {
@@ -307,179 +324,52 @@ a[href^="mailto:"]:hover {
   }
 }
 
-/* Login Button */
-.login-btn {
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-  color: #111827;
-  border: 2px solid #d97706;
-  padding: 10px 18px;
-  border-radius: 6px;
-  font-weight: 700;
-  font-size: 13px;
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  text-transform: uppercase;
-  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.25);
-  position: relative;
-  overflow: hidden;
-}
-
-.login-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  transition: left 0.35s ease;
-  z-index: -1;
-}
-
-.login-btn:hover::before {
-  left: 100%;
-}
-
-.login-btn:hover {
-  background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
-  border-color: #fbbf24;
-  color: #111827;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.35);
-}
-
-.login-icon {
-  width: 16px;
-  height: 16px;
-  stroke: currentColor;
-  transition: all 0.3s ease;
-}
-
-.login-btn:hover .login-icon {
-  transform: scale(1.15);
-}
-
-/* User Menu */
-.user-menu {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0;
-}
-
-.user-btn {
-  padding: 10px 16px;
-  border-radius: 6px 0 0 6px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-}
-
-.user-icon {
-  width: 18px;
-  height: 18px;
-  stroke: currentColor;
-  transition: all 0.3s ease;
-}
-
-.user-btn:hover .user-icon {
-  transform: scale(1.1);
-}
-
-.logout-btn {
-  background: #ef4444;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 0 4px 4px 0;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.logout-btn:hover {
-  background: #dc2626;
-  transform: translateY(-2px);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .space-x-6 > :not([hidden]) ~ :not([hidden]) {
-    margin-right: calc(1.5rem * var(--tw-space-x-reverse));
-    margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
-  }
-
-  .header-btn {
-    font-size: 14px;
-    padding: 6px 10px;
-  }
-
-  .cart-badge {
-    width: 18px;
-    height: 18px;
-    font-size: 11px;
-    top: -6px;
-    right: -6px;
-  }
-
-  .login-btn {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .space-x-6 > :not([hidden]) ~ :not([hidden]) {
-    margin-right: calc(1rem * var(--tw-space-x-reverse));
-    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
-  }
-
-  .header-btn {
-    font-size: 13px;
-    padding: 5px 8px;
-  }
-
-  .user-menu {
-    flex-direction: column;
-  }
-
-  .logout-btn {
-    border-radius: 4px;
-    width: 100%;
-  }
-}
-
 /* ============================================================
-   CART DROPDOWN - Shopping Cart Display
+   CART DROPDOWN
    ============================================================ */
 
 .cart-dropdown-container {
-  position: relative;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.cart-dropdown-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  z-index: -1;
+  transition: background 0.3s ease;
+}
+
+.cart-dropdown-container.show-backdrop::before {
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
 }
 
 .cart-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
+  position: fixed;
   width: 380px;
   background: white;
   border-radius: 8px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  margin-top: 12px;
-  z-index: 1000;
+  z-index: 1001;
   max-height: 500px;
   display: flex;
   flex-direction: column;
   animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+  top: 130px;
+  right: 20px;
 }
 
 @keyframes slideDown {
@@ -498,9 +388,9 @@ a[href^="mailto:"]:hover {
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  border-bottom: 2px solid #f3f4f6;
   background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
   border-radius: 8px 8px 0 0;
+  border-bottom: 2px solid #f3f4f6;
 }
 
 .cart-dropdown-header h3 {
@@ -519,10 +409,6 @@ a[href^="mailto:"]:hover {
   cursor: pointer;
   width: 32px;
   height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
   transition: all 0.2s ease;
 }
 
@@ -535,24 +421,6 @@ a[href^="mailto:"]:hover {
   flex: 1;
   overflow-y: auto;
   padding: 0;
-}
-
-.cart-items-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.cart-items-list::-webkit-scrollbar-track {
-  background: #f3f4f6;
-  border-radius: 3px;
-}
-
-.cart-items-list::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 3px;
-}
-
-.cart-items-list::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
 }
 
 .cart-item {
@@ -573,7 +441,6 @@ a[href^="mailto:"]:hover {
   border-radius: 4px;
   overflow: hidden;
   background: #f3f4f6;
-  flex-shrink: 0;
 }
 
 .item-image img {
@@ -592,9 +459,9 @@ a[href^="mailto:"]:hover {
   font-size: 14px;
   font-weight: 600;
   color: #111827;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .item-price {
@@ -610,21 +477,6 @@ a[href^="mailto:"]:hover {
   color: #6b7280;
 }
 
-.item-total {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.item-total p {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 700;
-  color: #111827;
-}
-
 .remove-btn {
   background: #fee2e2;
   border: none;
@@ -632,24 +484,17 @@ a[href^="mailto:"]:hover {
   width: 28px;
   height: 28px;
   border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .remove-btn:hover {
   background: #fecaca;
-  color: #991b1b;
   transform: scale(1.05);
-}
-
-.remove-btn svg {
-  width: 16px;
-  height: 16px;
-  stroke-width: 2;
 }
 
 .empty-cart {
@@ -669,7 +514,6 @@ a[href^="mailto:"]:hover {
 .cart-total {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 12px;
   font-size: 15px;
   color: #111827;
@@ -693,7 +537,6 @@ a[href^="mailto:"]:hover {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
-  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
 }
 
 .checkout-btn:hover {
@@ -702,15 +545,528 @@ a[href^="mailto:"]:hover {
   box-shadow: 0 6px 16px rgba(251, 191, 36, 0.3);
 }
 
-.checkout-btn:active {
-  transform: translateY(0);
+/* ============================================================
+   HAMBURGER BUTTON - Mobile/Tablet
+   ============================================================ */
+
+.hamburger-menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  background: transparent;
+  border: none !important;
+  outline: none !important;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* Responsive - Cart Dropdown */
+.hamburger-menu-btn:hover {
+  color: #fbbf24;
+}
+
+.hamburger-menu-btn:focus {
+  border: none !important;
+  outline: none !important;
+}
+
+.hamburger-menu-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.md\:hidden.inline-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  background: transparent;
+  border: none !important;
+  outline: none !important;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.md\:hidden.inline-flex:hover {
+  color: #fbbf24;
+}
+
+.md\:hidden.inline-flex:focus {
+  border: none !important;
+  outline: none !important;
+}
+
+.md\:hidden.inline-flex svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Hide hamburger on desktop/laptop - Desktop is 1025px and above */
+@media (min-width: 1025px) {
+  .hamburger-menu-btn,
+  .md\:hidden.inline-flex {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   MOBILE MENU - Tablet & Mobile Views
+   ============================================================ */
+
+.md\:hidden.pb-4.border-t {
+  background: linear-gradient(to bottom, #1f2937 0%, #111827 100%);
+  padding: 8px 0 !important;
+  margin-top: 4px;
+  border-top: 2px solid rgba(251, 191, 36, 0.3) !important;
+}
+
+.md\:hidden.pb-4.border-t .block.px-3.py-3 {
+  display: block;
+  padding: 14px 20px !important;
+  border-left: 4px solid transparent;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.md\:hidden.pb-4.border-t .block.px-3.py-3:hover {
+  background: rgba(251, 191, 36, 0.15);
+  border-left-color: #fbbf24;
+  padding-left: 24px !important;
+  color: #fcd34d;
+}
+
+.md\:hidden.pb-4.border-t .block.px-3.py-3.active {
+  background: rgba(251, 191, 36, 0.2);
+  border-left-color: #fbbf24;
+  color: #fcd34d;
+  font-weight: 600;
+}
+
+/* Mobile Menu Items with Left-Side Icons */
+.mobile-menu-item {
+  display: flex !important;
+  align-items: center;
+  gap: 12px !important;
+  padding: 14px 20px !important;
+}
+
+.mobile-menu-icon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-item:hover .mobile-menu-icon {
+  color: #fbbf24;
+  transform: scale(1.1);
+}
+
+.mobile-menu-item.active .mobile-menu-icon {
+  color: #fcd34d;
+}
+
+/* ============================================================
+   MOBILE ACTION BUTTONS - Cart, Login, User
+   ============================================================ */
+
+.mobile-cart-btn,
+.mobile-login-btn,
+.mobile-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: calc(100% - 32px);
+  margin: 10px 16px;
+  padding: 13px 16px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #1f2937;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.mobile-cart-btn:hover,
+.mobile-login-btn:hover,
+.mobile-user-btn:hover {
+  background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(251, 191, 36, 0.3);
+  color: #111827;
+}
+
+.mobile-user-btn {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-bottom: 0;
+}
+
+.mobile-user-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.mobile-logout-btn {
+  width: calc(100% - 32px);
+  margin: 0 16px 10px 16px;
+  padding: 11px 16px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 0 0 5px 5px;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-logout-btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+.mobile-cart-icon,
+.mobile-login-icon,
+.mobile-user-icon {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.mobile-cart-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 800;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.4);
+  animation: cartBadgePulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   RESPONSIVE: TABLET (641px - 1024px)
+   ============================================================ */
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  nav .max-w-7xl {
+    padding: 10px 16px;
+  }
+  
+  nav .flex.justify-between.items-center {
+    min-height: 65px;
+  }
+  
+  .logo-img {
+    height: 56px !important;
+  }
+  
+  .bg-gradient-to-r {
+    padding: 7px 0 !important;
+  }
+  
+  .bg-gradient-to-r a,
+  .bg-gradient-to-r span {
+    font-size: 12px !important;
+  }
+  
+  .md\:hidden.pb-4.border-t .block.px-3.py-3,
+  .mobile-menu-item {
+    padding: 15px 24px !important;
+    font-size: 13px;
+  }
+  
+  .md\:hidden.pb-4.border-t .block.px-3.py-3:hover,
+  .mobile-menu-item:hover {
+    padding-left: 28px !important;
+  }
+  
+  .mobile-menu-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .brochure-btn.w-full,
+  .brochure-btn-mobile {
+    width: calc(100% - 32px) !important;
+    margin: 10px 16px !important;
+    padding: 13px 18px !important;
+    font-size: 13px;
+    justify-content: flex-start !important;
+  }
+  
+  .brochure-btn.w-full svg,
+  .brochure-btn-mobile svg {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .mobile-cart-btn,
+  .mobile-login-btn,
+  .mobile-user-btn {
+    width: calc(100% - 32px) !important;
+    margin: 10px 16px !important;
+    padding: 13px 18px !important;
+    font-size: 13px;
+  }
+  
+  .mobile-logout-btn {
+    width: calc(100% - 32px) !important;
+    margin: 0 16px 10px 16px !important;
+    padding: 12px 18px !important;
+    font-size: 12px;
+  }
+  
+  .hamburger-menu-btn,
+  .md\:hidden.inline-flex {
+    width: 46px;
+    height: 46px;
+  }
+  
+  .hamburger-menu-btn svg,
+  .md\:hidden.inline-flex svg {
+    width: 26px;
+    height: 26px;
+  }
+  
+  .cart-dropdown {
+    width: 360px;
+    top: 150px;
+    right: 16px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE: MOBILE (481px - 640px)
+   ============================================================ */
+
+@media (min-width: 481px) and (max-width: 640px) {
+  nav .max-w-7xl {
+    padding: 8px 12px;
+  }
+  
+  nav .flex.justify-between.items-center {
+    min-height: 52px;
+  }
+  
+  .logo-img {
+    height: 42px !important;
+  }
+  
+  .bg-gradient-to-r {
+    padding: 5px 0 !important;
+  }
+  
+  .bg-gradient-to-r a,
+  .bg-gradient-to-r span {
+    font-size: 11px !important;
+  }
+  
+  .md\:hidden.pb-4.border-t .block.px-3.py-3,
+  .mobile-menu-item {
+    padding: 12px 18px !important;
+    font-size: 12px;
+  }
+  
+  .mobile-menu-icon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .brochure-btn.w-full,
+  .brochure-btn-mobile {
+    width: calc(100% - 24px) !important;
+    margin: 8px 12px !important;
+    padding: 11px 14px !important;
+    font-size: 12px;
+    justify-content: flex-start !important;
+  }
+  
+  .brochure-btn.w-full svg,
+  .brochure-btn-mobile svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .mobile-cart-btn,
+  .mobile-login-btn,
+  .mobile-user-btn {
+    width: calc(100% - 24px) !important;
+    margin: 8px 12px !important;
+    padding: 11px 14px !important;
+    font-size: 12px;
+  }
+  
+  .mobile-logout-btn {
+    width: calc(100% - 24px) !important;
+    margin: 0 12px 8px 12px !important;
+    padding: 10px 14px !important;
+    font-size: 11px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE: SMALL MOBILE (Max 480px)
+   ============================================================ */
+
+@media (max-width: 480px) {
+  nav .max-w-7xl {
+    padding: 6px 8px;
+  }
+  
+  nav .flex.justify-between.items-center {
+    min-height: 48px;
+  }
+  
+  .logo-img {
+    height: 36px !important;
+  }
+  
+  .bg-gradient-to-r {
+    padding: 4px 0 !important;
+  }
+  
+  .bg-gradient-to-r .max-w-7xl {
+    gap: 6px !important;
+  }
+  
+  .bg-gradient-to-r a,
+  .bg-gradient-to-r span {
+    font-size: 9px !important;
+  }
+  
+  .md\:hidden.pb-4.border-t {
+    padding: 6px 0 !important;
+  }
+  
+  .md\:hidden.pb-4.border-t .block.px-3.py-3,
+  .mobile-menu-item {
+    padding: 11px 14px !important;
+    font-size: 11px;
+  }
+  
+  .md\:hidden.pb-4.border-t .block.px-3.py-3:hover,
+  .mobile-menu-item:hover {
+    padding-left: 18px !important;
+  }
+  
+  .mobile-menu-icon {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .brochure-btn.w-full,
+  .brochure-btn-mobile {
+    width: calc(100% - 16px) !important;
+    margin: 6px 8px !important;
+    padding: 9px 12px !important;
+    font-size: 11px;
+    border-radius: 3px;
+    justify-content: flex-start !important;
+  }
+  
+  .brochure-btn.w-full svg,
+  .brochure-btn-mobile svg {
+    width: 13px;
+    height: 13px;
+  }
+  
+  .mobile-cart-btn,
+  .mobile-login-btn,
+  .mobile-user-btn {
+    width: calc(100% - 16px) !important;
+    margin: 6px 8px !important;
+    padding: 10px 12px !important;
+    font-size: 11px;
+    gap: 8px;
+  }
+  
+  .mobile-cart-icon,
+  .mobile-login-icon,
+  .mobile-user-icon {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .mobile-logout-btn {
+    width: calc(100% - 16px) !important;
+    margin: 0 8px 6px 8px !important;
+    padding: 8px 12px !important;
+    font-size: 10px;
+  }
+  
+  .mobile-cart-badge {
+    min-width: 16px;
+    height: 16px;
+    font-size: 9px;
+  }
+  
+  .hamburger-menu-btn,
+  .md\:hidden.inline-flex {
+    width: 40px;
+    height: 40px;
+    padding: 6px;
+  }
+  
+  .hamburger-menu-btn svg,
+  .md\:hidden.inline-flex svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* ============================================================
+   CART DROPDOWN - Responsive
+   ============================================================ */
+
 @media (max-width: 640px) {
   .cart-dropdown {
-    width: 340px;
-    right: -60px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+    max-height: 70vh;
+  }
+  
+  .cart-item {
+    gap: 10px;
+    padding: 10px 12px;
+  }
+  
+  .item-image {
+    width: 50px;
+    height: 50px;
   }
 }
 
@@ -724,16 +1080,33 @@ a[href^="mailto:"]:hover {
     width: 100%;
     border-radius: 12px 12px 0 0;
     max-height: 70vh;
-    margin-top: 0;
   }
-
+  
   .cart-item {
     gap: 10px;
     padding: 10px 12px;
   }
-
+  
   .item-image {
     width: 50px;
     height: 50px;
+  }
+}
+
+/* ============================================================
+   ENSURE MOBILE MENU DISPLAYS ON TABLETS & PHONES
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .hidden.md\:flex {
+    display: none !important;
+  }
+  
+  .md\:hidden {
+    display: block !important;
+  }
+  
+  .md\:hidden.inline-flex {
+    display: inline-flex !important;
   }
 }
