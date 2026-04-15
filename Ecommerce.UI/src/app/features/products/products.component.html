@@ -78,9 +78,11 @@
           >
           
           <!-- Badge - Classic Style -->
-          <div *ngIf="product.badge" class="absolute top-3 left-3 bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded shadow-md">
-            {{ product.badge }}
-          </div>
+          <div *ngIf="hasBadge(product.badge)" 
+                 [ngClass]="getBadgeClass(product.badge)"
+                 class="absolute top-3 right-3 badge-small">
+              {{ product.badge }}
+            </div>
         </div>
 
         <!-- Product Content -->

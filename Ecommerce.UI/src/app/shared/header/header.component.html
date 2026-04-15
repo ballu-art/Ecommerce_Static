@@ -17,7 +17,7 @@
   <!-- Main Navigation -->
   <nav class="bg-gray-900 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-32">
+      <div class="flex justify-between items-center h-14">
         <!-- Logo -->
         <div class="flex-shrink-0 flex items-center gap-2">
           <a routerLink="/" class="flex items-center gap-2 cursor-pointer hover:opacity-90 transition-opacity">
@@ -64,7 +64,7 @@
               <line x1="12" y1="13" x2="12" y2="17"></line>
               <line x1="10" y1="15" x2="14" y2="15"></line>
             </svg>
-            Brochure
+            <span class="hidden lg:inline">Brochure</span>
           </button>
 
           <!-- Cart Button - Creative Design -->
@@ -86,7 +86,7 @@
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
-              <span>{{ userName }}</span>
+              <span class="hidden lg:inline">{{ userName }}</span>
             </button>
             <button class="logout-btn" (click)="logout()">
               Logout
@@ -98,7 +98,7 @@
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
               </svg>
-              <span>Login</span>
+              <span class="hidden lg:inline">Login</span>
             </a>
           </ng-template>
         </div>

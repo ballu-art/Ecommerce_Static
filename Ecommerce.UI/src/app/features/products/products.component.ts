@@ -185,5 +185,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  getBadgeClass(badge: string | null | undefined): string {
+    if (!badge) return '';
+    return `badge-${badge.toLowerCase()}`;
+  }
+
+  hasBadge(badge: string | null | undefined): boolean {
+    return !!badge;
+  }
 }
 

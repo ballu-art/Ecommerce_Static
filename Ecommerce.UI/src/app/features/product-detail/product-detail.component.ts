@@ -34,6 +34,7 @@ export class ProductDetailComponent implements OnInit {
   messageText: string = '';
   customerEmail: string = '';
   customerPhone: string = '';
+  quantity: number = 1;
 
   constructor(private http: HttpClient) {}
 
@@ -42,7 +43,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.http.get<Product[]>('/assets/files/products.json').subscribe({
+    this.http.get<Product[]>('/files/products.json').subscribe({
       next: (data: Product[]) => {
         this.products = data;
         if (this.products.length > 0) {
@@ -87,6 +88,25 @@ export class ProductDetailComponent implements OnInit {
     });
     alert('Thank you! We will contact you shortly.');
     this.closeMessageModal();
+  }
+
+  incrementQuantity(): void {
+    this.quantity++;
+  }
+
+  decrementQuantity(): void {
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
+  }
+
+  calculateSavings(): number {
+    if (!this.selectedProduct) return 0;
+    return this.selectedProduct.originalPrice - this.selectedProduct.currentPrice;
+  }
+
+  addToCart(): void {
+    alert(`Added ${this.quantity} x ${this.selectedProduct?.name} to cart`);
   }
 
   getBadgeClass(badge: string | null | undefined): string {

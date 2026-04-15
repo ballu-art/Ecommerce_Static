@@ -1,105 +1,134 @@
-<div class="bg-gray-50">
-  <!-- Breadcrumb -->
-  <section class="bg-white border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <div class="flex items-center gap-2 text-sm text-gray-600">
-        <a href="/" class="hover:text-yellow-600 transition-colors font-medium">Home</a>
-        <span class="text-gray-400">/</span>
-        <a href="/products" class="hover:text-yellow-600 transition-colors font-medium">Products</a>
-        <span class="text-gray-400">/</span>
-        <span class="text-yellow-600 font-semibold">Product Details</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Selected Product Detail Section -->
+<div class="min-h-screen bg-white">
+  <!-- MAIN PRODUCT SECTION -->
   <section *ngIf="selectedProduct" class="py-12 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <!-- Product Image -->
-        <div class="flex flex-col">
-          <!-- Main Image -->
-          <div class="relative mb-8">
-            <div class="bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg p-12 flex items-center justify-center min-h-96 shadow-lg overflow-hidden">
-              <img [src]="selectedProduct.image" [alt]="selectedProduct.name" class="max-w-full max-h-96 object-contain">
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+        
+        <!-- PRODUCT IMAGE GALLERY - NEW DESIGN -->
+        <div class="lg:col-span-2">
+          <div class="sticky top-20">
+            <!-- Main Product Image -->
+            <div class="relative bg-gradient-to-b from-slate-50 to-slate-100 rounded-2xl p-8 mb-6 aspect-square flex items-center justify-center overflow-hidden border border-slate-200 shadow-sm">
+              <img [src]="selectedProduct.image" 
+                   [alt]="selectedProduct.name" 
+                   class="w-full h-full object-contain max-w-sm max-h-sm">
+              
+              <!-- Badge -->
+              <div *ngIf="hasBadge(selectedProduct.badge)" 
+                   [ngClass]="getBadgeClass(selectedProduct.badge)"
+                   class="absolute top-6 right-6 badge-redesign">
+                {{ selectedProduct.badge }}
+              </div>
             </div>
-            <!-- Badge Overlay -->
-            <div *ngIf="hasBadge(selectedProduct.badge)" 
-                 [ngClass]="getBadgeClass(selectedProduct.badge)"
-                 class="absolute top-4 left-4 badge">
-              {{ selectedProduct.badge }}
+
+            <!-- Thumbnail Gallery -->
+            <div class="grid grid-cols-4 gap-3">
+              <button *ngFor="let product of products | slice:0:4"
+                      (click)="selectProduct(product)"
+                      [ngClass]="{'ring-2 ring-amber-600': product.id === selectedProduct.id}"
+                      class="aspect-square rounded-lg bg-slate-100 p-2 border border-slate-200 hover:border-amber-400 transition-all flex items-center justify-center">
+                <img [src]="product.image" [alt]="product.name" class="w-full h-full object-contain p-2">
+              </button>
             </div>
           </div>
         </div>
 
-        <!-- Product Details -->
-        <div class="flex flex-col justify-between">
-          <!-- Badge -->
-          <div></div>
+        <!-- PRODUCT DETAILS - ENHANCED LAYOUT -->
+        <div class="lg:col-span-3">
+          <!-- Category Badge -->
+          <div class="mb-4">
+            <span class="inline-block px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-full border border-amber-200">
+              {{ selectedProduct.category }}
+            </span>
+          </div>
 
-          <!-- Name -->
-          <div>
-            <h1 class="text-4xl font-bold text-gray-900 mb-4 leading-tight">{{ selectedProduct.name }}</h1>
+          <!-- Title -->
+          <h1 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 leading-tight">
+            {{ selectedProduct.name }}
+          </h1>
 
-            <!-- Rating -->
-            <div class="flex items-center gap-4 mb-6 pb-6 border-b border-gray-200">
-              <div class="flex text-yellow-500 text-lg">
-                <span *ngFor="let i of [1,2,3,4,5]">★</span>
+          <!-- Rating Section -->
+          <div class="flex items-center gap-6 mb-8 pb-8 border-b border-slate-200">
+            <div class="flex items-center gap-2">
+              <div class="flex gap-0.5">
+                <span *ngFor="let i of [1,2,3,4,5]" class="text-lg text-amber-400">★</span>
               </div>
-              <span class="text-lg font-semibold text-gray-900">{{ selectedProduct.rating }}</span>
-              <span class="text-gray-600">({{ selectedProduct.reviews }} reviews)</span>
+              <span class="text-lg font-bold text-slate-900">{{ selectedProduct.rating }}</span>
             </div>
+            <a href="#reviews" class="text-sm text-slate-600 hover:text-amber-600">
+              {{ selectedProduct.reviews }} customer reviews
+            </a>
+          </div>
 
-            <!-- Price Section -->
-            <div class="mb-6 pb-6 border-b border-gray-200">
-              <div class="mb-3">
-                <span class="text-xs text-gray-600 uppercase tracking-wider font-semibold">Price</span>
-                <div class="flex items-center gap-3 mt-2">
-                  <span class="text-3xl font-bold text-yellow-600">₹{{ selectedProduct.currentPrice }}</span>
-                  <span class="text-lg text-gray-500 line-through">₹{{ selectedProduct.originalPrice }}</span>
-                  <span class="inline-block bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-bold">-{{ selectedProduct.discount }}%</span>
-                </div>
+          <!-- Price Section - Premium Design -->
+          <div class="mb-8 pb-8 border-b border-slate-200">
+            <!-- Price Display -->
+            <div class="flex items-baseline gap-4 mb-2">
+              <span class="text-2xl text-slate-400 line-through">₹{{ selectedProduct.originalPrice }}</span>
+              <span class="text-4xl font-bold text-amber-600">₹{{ selectedProduct.currentPrice }}</span>
+              <span class="text-base font-semibold text-amber-600 ml-auto">
+                Save ₹{{ calculateSavings() }} ({{ selectedProduct.discount }}%)
+              </span>
+            </div>
+            <!-- Taxes Info -->
+            <p class="text-sm text-slate-600 mb-6">Taxes included. Shipping calculated at checkout.</p>
+
+            <!-- Quantity Selector & Add to Cart Row -->
+            <div class="flex items-center gap-4 mb-6">
+              <!-- Quantity Selector -->
+              <div class="flex items-center border border-slate-300 rounded-lg overflow-hidden flex-shrink-0">
+                <button (click)="decrementQuantity()" 
+                        class="px-4 py-3 text-slate-600 hover:bg-slate-100 transition-colors font-semibold text-lg">
+                  −
+                </button>
+                <input [(ngModel)]="quantity" type="number" name="quantity" 
+                       class="w-16 text-center py-3 border-l border-r border-slate-300 focus:outline-none focus:ring-0 font-semibold"
+                       min="1">
+                <button (click)="incrementQuantity()" 
+                        class="px-4 py-3 text-slate-600 hover:bg-slate-100 transition-colors font-semibold text-lg">
+                  +
+                </button>
               </div>
-              <p class="text-sm text-gray-600 mt-2">{{ selectedProduct.priceRange }}</p>
-            </div>
 
-            <!-- Description -->
-            <p class="text-gray-700 text-base mb-6 leading-relaxed">
-              {{ selectedProduct.description }}
-            </p>
-
-            <!-- Features -->
-            <div class="mb-8">
-              <h3 class="text-lg font-bold text-gray-900 mb-4">Key Features</h3>
-              <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <li *ngFor="let feature of selectedProduct.features" class="flex items-start gap-3">
-                  <span class="text-yellow-600 font-bold text-lg mt-1">✓</span>
-                  <span class="text-gray-700">{{ feature }}</span>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex gap-4 mb-8">
-              <button (click)="openMessageModal(selectedProduct)"
-                      class="flex-1 bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-lg transition-colors shadow-lg">
-                <svg class="inline-block w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
-                </svg>
-                Send Message
-              </button>
-              <button class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 font-bold py-3 px-6 rounded-lg transition-colors shadow-lg">
-                <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                </svg>
-                Save
+              <!-- Add to Cart Button -->
+              <button (click)="addToCart()"
+                      class="flex-1 bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-full transition-colors text-lg shadow-md">
+                Add to cart
               </button>
             </div>
 
-            <!-- Category -->
-            <div class="text-sm text-gray-600">
-              <span class="font-semibold">Category:</span>
-              <span class="ml-2">{{ selectedProduct.category }}</span>
+            <!-- Buy Now Button - Creative Classic Design -->
+            <button class="w-full group relative overflow-hidden py-4 px-6 border-2 border-slate-800 text-slate-900 font-bold transition-all duration-300 hover:shadow-lg">
+              <!-- Background Gradient on Hover -->
+              <div class="absolute inset-0 bg-gradient-to-r from-amber-50 via-slate-50 to-amber-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <!-- Text Content -->
+              <span class="relative z-10 flex items-center justify-center gap-2 text-lg tracking-wide">
+                BUY NOW 
+              </span>
+              
+              <!-- Bottom Border Accent -->
+              <div class="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-amber-600 to-amber-500 group-hover:w-full transition-all duration-500"></div>
+            </button>
+          </div>
+
+          <!-- Description -->
+          <p class="text-slate-700 mb-8 leading-relaxed">
+            {{ selectedProduct.description }}
+          </p> 
+          <!-- Product Meta Info -->
+          <div class="grid grid-cols-3 gap-4 p-4 bg-slate-50 rounded-lg">
+            <div class="text-center">
+              <p class="text-2xl font-bold text-amber-600">🚚</p>
+              <p class="text-xs text-slate-600 mt-1">Free Shipping</p>
+            </div>
+            <div class="text-center">
+              <p class="text-2xl font-bold text-amber-600">✓</p>
+              <p class="text-xs text-slate-600 mt-1">Verified Quality</p>
+            </div>
+            <div class="text-center">
+              <p class="text-2xl font-bold text-amber-600">24/7</p>
+              <p class="text-xs text-slate-600 mt-1">Support</p>
             </div>
           </div>
         </div>
@@ -107,70 +136,174 @@
     </div>
   </section>
 
-  <!-- All Products Grid Section -->
-  <section class="py-12 bg-gray-50">
+  <!-- SPECIFICATIONS SECTION - MODERN DESIGN -->
+  <section *ngIf="selectedProduct" class="py-16 bg-slate-50 border-t border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">Our Products</h2>
-        <p class="text-gray-600">Browse our complete collection of premium products</p>
-      </div>
-
-      <!-- Products Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div *ngFor="let product of products"
-             (click)="selectProduct(product)"
-             class="bg-white rounded-lg shadow-md hover:shadow-lg transition-all cursor-pointer overflow-hidden border border-gray-200">
-          
-          <!-- Product Image Container -->
-          <div class="relative h-64 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden group">
-            <img [src]="product.image" [alt]="product.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-            
-            <!-- Badge Overlay -->
-            <div *ngIf="hasBadge(product.badge)" 
-                 [ngClass]="getBadgeClass(product.badge)"
-                 class="absolute top-3 left-3 badge">
-              {{ product.badge }}
+      <h2 class="text-3xl font-bold text-slate-900 mb-12">Technical Specifications</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Specifications Card -->
+        <div class="bg-white rounded-xl p-8 border border-slate-200 shadow-sm">
+          <h3 class="text-lg font-bold text-slate-900 mb-6">Product Specs</h3>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+              <span class="text-slate-600 font-medium">Category</span>
+              <span class="text-slate-900 font-semibold">{{ selectedProduct.category }}</span>
             </div>
+            <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+              <span class="text-slate-600 font-medium">Rating</span>
+              <span class="text-slate-900 font-semibold">{{ selectedProduct.rating }} / 5.0</span>
+            </div>
+            <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+              <span class="text-slate-600 font-medium">Customer Reviews</span>
+              <span class="text-slate-900 font-semibold">{{ selectedProduct.reviews }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-600 font-medium">Discount Offer</span>
+              <span class="text-red-600 font-bold text-lg">{{ selectedProduct.discount }}% OFF</span>
+            </div>
+          </div>
+        </div>
 
-            <!-- Overlay on Hover -->
-            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-              <span class="text-white font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity">View Details</span>
+        <!-- Features Card -->
+        <div class="bg-white rounded-xl p-8 border border-slate-200 shadow-sm">
+          <h3 class="text-lg font-bold text-slate-900 mb-6">Features & Benefits</h3>
+          <div class="space-y-3">
+            <div *ngFor="let feature of selectedProduct.features" 
+                 class="flex items-center gap-3">
+              <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
+                <svg class="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+              </div>
+              <span class="text-slate-700">{{ feature }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUSTOMER REVIEWS SECTION -->
+  <section *ngIf="selectedProduct" id="reviews" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-slate-900 mb-12">Customer Reviews</h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Review Summary Card -->
+        <div class="bg-gradient-to-b from-amber-50 to-white rounded-xl p-8 border border-amber-200 h-fit">
+          <div class="flex items-center gap-4 mb-6">
+            <span class="text-5xl font-bold text-amber-600">{{ selectedProduct.rating }}</span>
+            <div>
+              <div class="flex gap-1 mb-2">
+                <span *ngFor="let i of [1,2,3,4,5]" class="text-lg text-amber-400">★</span>
+              </div>
+              <p class="text-sm text-slate-600">{{ selectedProduct.reviews }} reviews</p>
             </div>
           </div>
 
-          <!-- Product Info -->
-          <div class="p-4">
-            <!-- Name -->
-            <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2">{{ product.name }}</h3>
-
-            <!-- Description -->
-            <p class="text-sm text-gray-600 mb-3 line-clamp-2">{{ product.description }}</p>
-
-            <!-- Rating -->
-            <div class="flex items-center gap-2 mb-3">
-              <div class="flex text-yellow-500 text-sm">
-                <span *ngFor="let i of [1,2,3,4,5]">★</span>
+          <div class="space-y-3 mb-6">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-semibold text-slate-700 w-10">5 ★</span>
+              <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                <div class="h-2 bg-amber-500 rounded-full" [style.width]="'80%'"></div>
               </div>
-              <span class="text-sm font-semibold text-gray-900">{{ product.rating }}</span>
-              <span class="text-xs text-gray-500">({{ product.reviews }})</span>
             </div>
-
-            <!-- Price -->
-            <div class="flex items-center gap-2 mb-3 pb-3 border-b border-gray-200">
-              <span class="text-2xl font-bold text-yellow-600">₹{{ product.currentPrice }}</span>
-              <span class="text-sm text-gray-500 line-through">₹{{ product.originalPrice }}</span>
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-semibold text-slate-700 w-10">4 ★</span>
+              <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                <div class="h-2 bg-amber-500 rounded-full" [style.width]="'60%'"></div>
+              </div>
             </div>
-
-            <!-- Discount Badge -->
-            <div class="flex items-center justify-between mb-4">
-              <span class="inline-block bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold">Save {{ product.discount }}%</span>
-              <span class="text-xs text-gray-600">{{ product.priceRange }}</span>
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-semibold text-slate-700 w-10">3 ★</span>
+              <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                <div class="h-2 bg-amber-500 rounded-full" [style.width]="'40%'"></div>
+              </div>
             </div>
+          </div>
 
-            <!-- Action Button -->
+          <button class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+            Write a Review
+          </button>
+        </div>
+
+        <!-- Individual Reviews -->
+        <div class="lg:col-span-2 space-y-5">
+          <div class="rounded-lg border border-slate-200 p-5 hover:shadow-md transition-shadow">
+            <div class="flex items-start justify-between mb-3">
+              <div class="flex gap-1">
+                <span *ngFor="let i of [1,2,3,4,5]" class="text-amber-400">★</span>
+              </div>
+              <span class="text-xs text-slate-500">2 months ago</span>
+            </div>
+            <p class="font-semibold text-slate-900 mb-2">Amazing product!</p>
+            <p class="text-sm text-slate-700 mb-3">Simply the best. The quality is exceptional and worth every penny.</p>
+            <p class="text-xs text-slate-600">— John D.</p>
+          </div>
+
+          <div class="rounded-lg border border-slate-200 p-5 hover:shadow-md transition-shadow">
+            <div class="flex items-start justify-between mb-3">
+              <div class="flex gap-1">
+                <span *ngFor="let i of [1,2,3,4]" class="text-amber-400">★</span>
+                <span class="text-slate-300">★</span>
+              </div>
+              <span class="text-xs text-slate-500">1 month ago</span>
+            </div>
+            <p class="font-semibold text-slate-900 mb-2">Very good quality</p>
+            <p class="text-sm text-slate-700 mb-3">Exactly as described. Would definitely recommend!</p>
+            <p class="text-xs text-slate-600">— Sarah M.</p>
+          </div>
+
+          <div class="rounded-lg border border-slate-200 p-5 hover:shadow-md transition-shadow">
+            <div class="flex items-start justify-between mb-3">
+              <div class="flex gap-1">
+                <span *ngFor="let i of [1,2,3,4,5]" class="text-amber-400">★</span>
+              </div>
+              <span class="text-xs text-slate-500">3 weeks ago</span>
+            </div>
+            <p class="font-semibold text-slate-900 mb-2">Excellent purchase</p>
+            <p class="text-sm text-slate-700 mb-3">Really impressed with quality and service. Highly recommended!</p>
+            <p class="text-xs text-slate-600">— Michael R.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOU MAY ALSO LIKE SECTION -->
+  <section *ngIf="products.length > 0" class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-slate-900 mb-12">You May Also Like</h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div *ngFor="let product of products | slice:0:4"
+             (click)="selectProduct(product)"
+             class="group bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition-all cursor-pointer">
+          
+          <div class="bg-slate-100 aspect-square flex items-center justify-center overflow-hidden relative">
+            <img [src]="product.image" [alt]="product.name" 
+                 class="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-300">
+            
+            <div *ngIf="hasBadge(product.badge)" 
+                 [ngClass]="getBadgeClass(product.badge)"
+                 class="absolute top-3 right-3 badge-small">
+              {{ product.badge }}
+            </div>
+          </div>
+
+          <div class="p-5">
+            <h3 class="font-bold text-slate-900 text-sm mb-2 line-clamp-2">{{ product.name }}</h3>
+            <div class="flex gap-1 mb-3">
+              <span *ngFor="let i of [1,2,3,4,5]" class="text-xs text-amber-400">★</span>
+            </div>
+            <div class="flex items-baseline gap-2 mb-4">
+              <span class="text-lg font-bold text-amber-600">₹{{ product.currentPrice }}</span>
+              <span class="text-xs text-slate-400 line-through">₹{{ product.originalPrice }}</span>
+            </div>
             <button (click)="openMessageModal(product); $event.stopPropagation()"
-                    class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg transition-colors text-sm">
-              Message
+                    class="w-full text-xs bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 rounded-lg transition-colors">
+              Get Quote
             </button>
           </div>
         </div>
@@ -178,56 +311,68 @@
     </div>
   </section>
 
-  <!-- Message Modal -->
+  <!-- NEWSLETTER SECTION -->
+  <section class="py-16 bg-gradient-to-r from-amber-600 to-amber-700">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-white mb-3">Get Exclusive Deals & Updates</h2>
+      <p class="text-amber-50 mb-8">Subscribe to our newsletter for special offers and new product launches.</p>
+      
+      <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input type="email" placeholder="Enter your email" 
+               class="flex-1 px-4 py-3 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-amber-300">
+        <button class="bg-white text-amber-600 hover:bg-slate-100 font-bold py-3 px-8 rounded-lg transition-colors whitespace-nowrap">
+          Subscribe
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MESSAGE MODAL -->
   <div *ngIf="showMessageModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-    <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+    <div class="bg-white rounded-xl shadow-2xl max-w-md w-full modal-animation">
       <!-- Modal Header -->
-      <div class="bg-gradient-to-r from-yellow-600 to-yellow-700 text-white p-6">
+      <div class="bg-gradient-to-r from-amber-600 to-amber-700 text-white p-6">
         <div class="flex items-center justify-between">
           <div>
-            <h2 class="text-2xl font-bold">Inquire Now</h2>
-            <p class="text-yellow-100 text-sm mt-1">{{ selectedProduct?.name }}</p>
+            <h2 class="text-2xl font-bold">Send Inquiry</h2>
+            <p class="text-amber-100 text-sm mt-1">{{ selectedProduct?.name }}</p>
           </div>
-          <button (click)="closeMessageModal()" class="text-2xl leading-none hover:opacity-70">×</button>
+          <button (click)="closeMessageModal()" class="text-2xl hover:opacity-70 font-bold">×</button>
         </div>
       </div>
 
       <!-- Modal Body -->
       <div class="p-6">
         <!-- Product Preview -->
-        <div class="bg-gray-100 rounded-lg p-4 mb-6 flex items-center gap-4">
-          <img [src]="selectedProduct?.image" [alt]="selectedProduct?.name" class="w-16 h-16 object-cover rounded">
-          <div class="flex-1 min-w-0">
-            <p class="font-semibold text-gray-900 text-sm truncate">{{ selectedProduct?.name }}</p>
-            <p class="text-yellow-600 font-bold text-sm">₹{{ selectedProduct?.currentPrice }}</p>
+        <div class="bg-slate-100 rounded-lg p-4 mb-6 flex items-center gap-4">
+          <img [src]="selectedProduct?.image" [alt]="selectedProduct?.name" class="w-16 h-16 object-contain rounded">
+          <div class="flex-1">
+            <p class="font-semibold text-slate-900 text-sm truncate">{{ selectedProduct?.name }}</p>
+            <p class="text-amber-600 font-bold text-sm">₹{{ selectedProduct?.currentPrice }}</p>
           </div>
         </div>
 
         <!-- Form -->
         <form (ngSubmit)="sendMessage()" class="space-y-4">
-          <!-- Email -->
           <div>
-            <label class="block text-sm font-semibold text-gray-900 mb-2">Email Address *</label>
+            <label class="block text-sm font-semibold text-slate-900 mb-2">Email Address *</label>
             <input [(ngModel)]="customerEmail" type="email" name="email" placeholder="your@email.com"
-                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-600">
+                   class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600">
           </div>
 
-          <!-- Phone -->
           <div>
-            <label class="block text-sm font-semibold text-gray-900 mb-2">Phone Number *</label>
+            <label class="block text-sm font-semibold text-slate-900 mb-2">Phone Number *</label>
             <input [(ngModel)]="customerPhone" type="tel" name="phone" placeholder="+91 XXXXX XXXXX"
-                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-600">
+                   class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600">
           </div>
 
-          <!-- Message -->
           <div>
-            <label class="block text-sm font-semibold text-gray-900 mb-2">Message (Optional)</label>
+            <label class="block text-sm font-semibold text-slate-900 mb-2">Message (Optional)</label>
             <textarea [(ngModel)]="messageText" name="message" placeholder="Share your requirements..."
-                      rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-600"></textarea>
+                      rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600"></textarea>
           </div>
 
-          <!-- Submit -->
-          <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 rounded-lg transition-colors mt-6">
+          <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-lg transition-colors mt-6">
             Send Inquiry
           </button>
         </form>
