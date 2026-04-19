@@ -323,6 +323,7 @@ footer > *:not(.footer-map-bg) {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 1.2rem 2.5rem;
   gap: 1rem;
 }
@@ -353,6 +354,18 @@ footer > *:not(.footer-map-bg) {
   border: 1px solid var(--ft-gold-dim);
   padding: 0.25rem 0.65rem;
   background: rgba(154, 111, 10, 0.06);
+}
+
+.footer-developer {
+  font-size: 0.75rem;
+  color: var(--ft-text-muted);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.footer-developer span {
+  color: var(--ft-gold);
+  font-weight: 500;
 }
 
 /* ============================================================

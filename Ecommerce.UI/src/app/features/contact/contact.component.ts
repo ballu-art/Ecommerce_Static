@@ -23,6 +23,7 @@ export class ContactComponent {
   submitted = false;
   isLoading = false;
   errorMessage = '';
+  whatsappNumber = '918401777499'; // +91 84017 77499
 
   constructor(private emailService: EmailService) {}
 
@@ -54,6 +55,42 @@ export class ContactComponent {
       );
     } else {
       this.errorMessage = 'Please fill in all required fields.';
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, 5000);
+    }
+  }
+
+  openWhatsApp() {
+    if (this.formData.name && this.formData.email && this.formData.message) {
+      // Create professionally formatted message with classic design
+      const whatsappMessage = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    NEW INQUIRY FROM WEBSITE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+*SENDER INFORMATION*
+Name: ${this.formData.name}
+Email: ${this.formData.email}
+
+*INQUIRY DETAILS*
+Subject: ${this.formData.subject || 'General Inquiry'}
+
+*MESSAGE*
+${this.formData.message}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Thank you for reaching out!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+      
+      // Encode message for URL
+      const encodedMessage = encodeURIComponent(whatsappMessage.trim());
+      
+      // Open WhatsApp with pre-filled message
+      const whatsappUrl = `https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`;
+      window.open(whatsappUrl, '_blank');
+    } else {
+      this.errorMessage = 'Please fill in all required fields (Name, Email, Message).';
       setTimeout(() => {
         this.errorMessage = '';
       }, 5000);

@@ -239,7 +239,39 @@ nav .flex.justify-between.items-center {
   filter: drop-shadow(0 4px 8px rgba(251, 191, 36, 0.3));
 }
 
+.cart-btn-mobile {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.cart-btn-mobile:hover {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  transform: translateY(-2px);
+}
+
+.cart-btn-mobile:hover .cart-icon {
+  transform: scale(1.15) rotate(-8deg);
+  filter: drop-shadow(0 4px 8px rgba(251, 191, 36, 0.3));
+}
+
+/* Hide mobile cart on desktop */
+@media (min-width: 768px) {
+  .cart-btn-mobile {
+    display: none !important;
+  }
+}
+
 .login-btn {
+  display: none;
   background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
   color: #111827;
   border: 2px solid #d97706;
@@ -688,7 +720,20 @@ nav .flex.justify-between.items-center {
    MOBILE ACTION BUTTONS - Cart, Login, User
    ============================================================ */
 
+.mobile-user-section {
+  display: none !important;
+}
+
+.mobile-user-btn,
+.mobile-logout-btn {
+  display: none !important;
+}
+
 .mobile-cart-btn,
+.mobile-login-btn {
+  display: none !important;
+}
+
 .mobile-login-btn,
 .mobile-user-btn {
   display: flex;
@@ -726,7 +771,7 @@ nav .flex.justify-between.items-center {
 }
 
 .mobile-user-section {
-  display: flex;
+  display: none !important;
   flex-direction: column;
   width: 100%;
 }
@@ -838,6 +883,7 @@ nav .flex.justify-between.items-center {
   .mobile-cart-btn,
   .mobile-login-btn,
   .mobile-user-btn {
+    display: none !important;
     width: calc(100% - 32px) !important;
     margin: 10px 16px !important;
     padding: 13px 18px !important;
@@ -845,6 +891,7 @@ nav .flex.justify-between.items-center {
   }
   
   .mobile-logout-btn {
+    display: none !important;
     width: calc(100% - 32px) !important;
     margin: 0 16px 10px 16px !important;
     padding: 12px 18px !important;
@@ -925,6 +972,7 @@ nav .flex.justify-between.items-center {
   .mobile-cart-btn,
   .mobile-login-btn,
   .mobile-user-btn {
+    display: none !important;
     width: calc(100% - 24px) !important;
     margin: 8px 12px !important;
     padding: 11px 14px !important;
@@ -932,6 +980,7 @@ nav .flex.justify-between.items-center {
   }
   
   .mobile-logout-btn {
+    display: none !important;
     width: calc(100% - 24px) !important;
     margin: 0 12px 8px 12px !important;
     padding: 10px 14px !important;
@@ -1008,6 +1057,7 @@ nav .flex.justify-between.items-center {
   .mobile-cart-btn,
   .mobile-login-btn,
   .mobile-user-btn {
+    display: none !important;
     width: calc(100% - 16px) !important;
     margin: 6px 8px !important;
     padding: 10px 12px !important;
