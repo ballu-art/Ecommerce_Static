@@ -130,10 +130,31 @@ export class CartService {
   }
 
   /**
+   * Get cart count (synchronous)
+   */
+  getCartCountSync(): number {
+    return this.cartCount.value;
+  }
+
+  /**
    * Get total price
    */
   getTotalPrice(): Observable<number> {
     return this.totalPrice$;
+  }
+
+  /**
+   * Get total price (synchronous) - Single source of truth for cart total
+   */
+  getTotalPriceSync(): number {
+    return this.totalPrice.value;
+  }
+
+  /**
+   * Get cart total (alias for getTotalPriceSync)
+   */
+  getCartTotal(): number {
+    return this.getTotalPriceSync();
   }
 
   /**

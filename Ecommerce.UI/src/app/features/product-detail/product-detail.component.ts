@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { ProductService, Product } from '../../services/product.service';
 import { APP_CONSTANTS } from '../../config/constants';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-detail',
@@ -13,7 +15,7 @@ import { APP_CONSTANTS } from '../../config/constants';
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   selectedProduct: Product | null = null;
   showMessageModal: boolean = false;
@@ -24,6 +26,8 @@ export class ProductDetailComponent implements OnInit {
   breadcrumbs: { label: string; path: string }[] = [];
   cartAdded: boolean = false;
 
+  private destroy$ = new Subject<void>();
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -31,11 +35,18 @@ export class ProductDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Get the product ID from the route parameter
-    this.route.params.subscribe(params => {
-      const productId = parseInt(params['id'], 10);
-      this.loadProducts(productId);
-    });
+    // Subscribe to route params with proper cleanup
+    this.route.params
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(params => {
+        const productId = parseInt(params['id'], 10);
+        this.loadProducts(productId);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   loadProducts(productIdToSelect?: number): void {

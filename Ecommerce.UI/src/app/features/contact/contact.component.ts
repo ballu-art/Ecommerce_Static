@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EmailService } from '../../services/email.service';
 import { APP_CONSTANTS } from '../../config/constants';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contact',
@@ -13,7 +15,7 @@ import { APP_CONSTANTS } from '../../config/constants';
   styleUrls: ['./contact.component.css'],
   providers: [EmailService]
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit, OnDestroy {
   formData = {
     name: '',
     email: '',
@@ -24,30 +26,42 @@ export class ContactComponent {
   submitted = false;
   isLoading = false;
   errorMessage = '';
+  private destroy$ = new Subject<void>();
 
   constructor(private emailService: EmailService) {}
+
+  ngOnInit(): void {
+    // Initialize if needed
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   submitForm() {
     if (this.formData.name && this.formData.email && this.formData.message) {
       this.isLoading = true;
       this.errorMessage = '';
 
-      this.emailService.sendEmail(this.formData).subscribe(
-        (response) => {
-          this.isLoading = false;
-          this.submitted = true;
-          // Reset form
-          this.formData = { name: '', email: '', subject: '', message: '' };
-          // Hide success message after 5 seconds
-          setTimeout(() => {
-            this.submitted = false;
-          }, 5000);
-        },
-        (error) => {
-          this.isLoading = false;
-          console.error('Email sending error:', error);
-          this.errorMessage = 'Failed to send message. Please try again.';
-          // Clear error message after 5 seconds
+      this.emailService.sendEmail(this.formData)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
+          (response) => {
+            this.isLoading = false;
+            this.submitted = true;
+            // Reset form
+            this.formData = { name: '', email: '', subject: '', message: '' };
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+              this.submitted = false;
+            }, 5000);
+          },
+          (error) => {
+            this.isLoading = false;
+            console.error('Email sending error:', error);
+            this.errorMessage = 'Failed to send message. Please try again.';
+            // Clear error message after 5 seconds
           setTimeout(() => {
             this.errorMessage = '';
           }, 5000);

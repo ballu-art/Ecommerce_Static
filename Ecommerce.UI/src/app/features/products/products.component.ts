@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +13,8 @@ import { APP_CONSTANTS } from '../../config/constants';
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsComponent implements OnInit, OnDestroy {
   categories = ['all', 'Tile Adhesives', 'Waterproofing Solutions', 'White Cement', 'Construction Chemicals', 'Surface Repair Solutions', 'Bonding Agents & Additives', 'Grouts & Fillers', 'Stone & Marble Solutions'];
