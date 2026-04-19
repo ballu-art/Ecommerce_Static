@@ -6,6 +6,7 @@ import { CartService } from '../../services/cart.service';
 import { ProductService, Product } from '../../services/product.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { APP_CONSTANTS } from '../../config/constants';
 
 @Component({
   selector: 'app-products',
@@ -135,9 +136,36 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   openWhatsApp(product: Product) {
-    const message = `Hi, I'm interested in ${product.name}. Can you provide me with a quotation and more details?`;
-    const phoneNumber = '918401777499'; // +91 84017 77499
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    // Create professionally formatted message with classic design
+    const whatsappMessage = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         PRODUCT INQUIRY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+*${product.name}*
+
+*Category:* ${product.category}
+*Rating:* ${product.rating || 'N/A'} ⭐
+
+*Description:*
+${product.description}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Hello! I'm interested in this product.
+
+Can you please provide me with:
+• Detailed specifications
+• Bulk pricing options
+• Delivery timeframe
+• Payment terms
+• Technical support information
+
+Thank you for your time!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${APP_CONSTANTS.WHATSAPP_PHONE_NUMBER}&text=${encodeURIComponent(whatsappMessage.trim())}`;
     window.open(whatsappUrl, '_blank');
   }
 
@@ -188,7 +216,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   getBadgeClass(badge: string | null | undefined): string {
     if (!badge) return '';
-    return `badge-${badge.toLowerCase()}`;
+    return `badge-${badge.toLowerCase().replace(/\s+/g, '-')}`;
   }
 
   hasBadge(badge: string | null | undefined): boolean {

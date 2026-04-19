@@ -1,24 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  currentPrice: number;
-  originalPrice: number;
-  discount: number;
-  priceRange: string;
-  rating: number;
-  reviews: number;
-  image: string;
-  badge?: string | null;
-  category: string;
-  features: string[];
-}
+import { CartService } from '../../services/cart.service';
+import { ProductService, Product } from '../../services/product.service';
+import { APP_CONSTANTS } from '../../config/constants';
 
 @Component({
   selector: 'app-product-detail',
@@ -35,19 +21,49 @@ export class ProductDetailComponent implements OnInit {
   customerEmail: string = '';
   customerPhone: string = '';
   quantity: number = 1;
+  breadcrumbs: { label: string; path: string }[] = [];
+  cartAdded: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private cartService: CartService
+  ) { }
 
   ngOnInit(): void {
-    this.loadProducts();
+    // Get the product ID from the route parameter
+    this.route.params.subscribe(params => {
+      const productId = parseInt(params['id'], 10);
+      this.loadProducts(productId);
+    });
   }
 
-  loadProducts(): void {
-    this.http.get<Product[]>('/files/products.json').subscribe({
+  loadProducts(productIdToSelect?: number): void {
+    // Subscribe to products from ProductService (uses localStorage cache)
+    this.productService.products$.subscribe({
       next: (data: Product[]) => {
         this.products = data;
-        if (this.products.length > 0) {
-          this.selectedProduct = this.products[0];
+        
+        if (productIdToSelect) {
+          // Find and select the specific product by ID from the URL
+          const product = this.products.find(p => p.id === productIdToSelect);
+          if (product) {
+            this.selectedProduct = product;
+            this.updateBreadcrumbs();
+          } else {
+            // Fallback to first product if ID not found
+            console.warn(`Product with ID ${productIdToSelect} not found`);
+            if (this.products.length > 0) {
+              this.selectedProduct = this.products[0];
+              this.updateBreadcrumbs();
+            }
+          }
+        } else {
+          // No route param, show first product
+          if (this.products.length > 0) {
+            this.selectedProduct = this.products[0];
+            this.updateBreadcrumbs();
+          }
         }
       },
       error: (error) => {
@@ -56,18 +72,30 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
+  updateBreadcrumbs(): void {
+    this.breadcrumbs = [
+      { label: 'Home', path: '/' },
+      { label: 'Products', path: '/products' },
+      { label: this.selectedProduct?.name || 'Product', path: '' }
+    ];
+  }
+
   selectProduct(product: Product): void {
     this.selectedProduct = product;
+    this.updateBreadcrumbs();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   openMessageModal(product: Product | null): void {
     if (!product) return;
     this.selectedProduct = product;
+    this.updateBreadcrumbs();
     this.showMessageModal = true;
     this.messageText = '';
     this.customerEmail = '';
     this.customerPhone = '';
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   closeMessageModal(): void {
@@ -106,12 +134,56 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToCart(): void {
-    alert(`Added ${this.quantity} x ${this.selectedProduct?.name} to cart`);
+    if (!this.selectedProduct) return;
+    this.cartService.addToCart(this.selectedProduct as any, this.quantity);
+    this.cartAdded = true;
+    this.quantity = 1;
+    setTimeout(() => { this.cartAdded = false; }, 2000);
+  }
+
+  buyNow(): void {
+    if (!this.selectedProduct) return;
+
+    // Create professionally formatted message with classic design
+    const whatsappMessage = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         PRODUCT INQUIRY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+*${this.selectedProduct.name}*
+
+*Category:* ${this.selectedProduct.category}
+*Rating:* ${this.selectedProduct.rating || 'N/A'} ⭐
+
+*Description:*
+${this.selectedProduct.description}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Hello! I'm interested in this product.
+
+Can you please provide me with:
+• Detailed specifications
+• Bulk pricing options
+• Delivery timeframe
+• Payment terms
+• Technical support information
+
+Thank you for your time!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+
+    // Open WhatsApp with pre-filled message
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${APP_CONSTANTS.WHATSAPP_PHONE_NUMBER}&text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
   }
 
   getBadgeClass(badge: string | null | undefined): string {
     if (!badge) return '';
-    return `badge-${badge.toLowerCase()}`;
+    return `badge-${badge.toLowerCase().replace(/\s+/g, '-')}`;
   }
 
   hasBadge(badge: string | null | undefined): boolean {

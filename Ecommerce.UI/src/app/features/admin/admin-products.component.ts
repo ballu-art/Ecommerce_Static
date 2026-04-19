@@ -209,6 +209,18 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     this.resetForm();
     // Force update of displayed products
     this.updateDisplayedProducts();
+    
+    // Scroll to products table instead of top
+    setTimeout(() => {
+      const productsTable = document.querySelector('.admin-container');
+      if (productsTable) {
+        window.scrollTo({
+          top: productsTable.getBoundingClientRect().top + window.scrollY - 200,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
+    
     setTimeout(() => this.clearMessages(), 3000);
   }
 

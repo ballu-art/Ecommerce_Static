@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EmailService } from '../../services/email.service';
+import { APP_CONSTANTS } from '../../config/constants';
 
 @Component({
   selector: 'app-contact',
@@ -23,7 +24,6 @@ export class ContactComponent {
   submitted = false;
   isLoading = false;
   errorMessage = '';
-  whatsappNumber = '918401777499'; // +91 84017 77499
 
   constructor(private emailService: EmailService) {}
 
@@ -87,7 +87,7 @@ Thank you for reaching out!
       const encodedMessage = encodeURIComponent(whatsappMessage.trim());
       
       // Open WhatsApp with pre-filled message
-      const whatsappUrl = `https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`;
+      const whatsappUrl = `https://wa.me/${APP_CONSTANTS.WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`;
       window.open(whatsappUrl, '_blank');
     } else {
       this.errorMessage = 'Please fill in all required fields (Name, Email, Message).';

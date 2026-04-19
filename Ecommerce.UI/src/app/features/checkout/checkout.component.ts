@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { APP_CONSTANTS } from '../../config/constants';
 
 interface CartItem {
   id: number;
@@ -43,7 +44,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   isProcessing = false;
   errorMessage = '';
   successMessage = '';
-  userPhone = '918401777499'; // WhatsApp phone number
 
   private destroy$ = new Subject<void>();
 
@@ -239,7 +239,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
    */
   private sendOrderViaWhatsApp(message: string): void {
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${this.userPhone}&text=${encodedMessage}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${APP_CONSTANTS.WHATSAPP_PHONE_NUMBER}&text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
   }
 
